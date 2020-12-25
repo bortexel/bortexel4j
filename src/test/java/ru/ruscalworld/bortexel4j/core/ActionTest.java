@@ -19,5 +19,9 @@ class ActionTest {
         assertNotNull(skin);
         assertTrue(skin.getTextures().isValid());
         assertNotNull(skin.getTextures().getValue());
+
+        user = User.getByUsername("RuscalWorld", client).execute();
+        assertNotNull(user);
+        assertEquals(1, user.getId());
     }
 }

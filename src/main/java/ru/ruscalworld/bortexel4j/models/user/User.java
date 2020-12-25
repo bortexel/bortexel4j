@@ -47,6 +47,12 @@ public class User {
         return action;
     }
 
+    public static Action<User> getByUsername(String username, Bortexel4J client) {
+        Action<User> action = new Action<>("/users/name/" + username, client);
+        action.setType(User.class);
+        return action;
+    }
+
     public int getId() {
         return id;
     }
