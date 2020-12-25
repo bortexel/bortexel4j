@@ -4,6 +4,7 @@ import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import ru.ruscalworld.bortexel4j.exceptions.LoginException;
+import ru.ruscalworld.bortexel4j.models.authorization.AuthCheck;
 
 public class Bortexel4J {
     public static final String API_URL = "https://api.bortexel.ru/v3";
@@ -18,15 +19,16 @@ public class Bortexel4J {
         this.level = level;
     }
 
+    public Bortexel4J(String token) {
+        this.token = token;
+        this.owner = null;
+        this.level = 0;
+    }
+
     public static Bortexel4J login(String token) throws LoginException {
-        return new Bortexel4J(token, null, 3);
-        //throw new LoginException("", "", 401);
-        /*String result = HttpUtil.performGetRequest(API_URL + "/method/authorization/checkToken.php?token=" + token);
-        boolean valid = true;
-        if (valid) {
-            return new Bortexel4J(token, (String) response.get("owner"), (int) response.get("level"));
-        } else throw new LoginException();
-        return null;*/
+        AuthCheck authorization = AuthCheck.checkToken(token).execute();
+        if (!authorization.isAuthorized()) throw new LoginException();
+        return new Bortexel4J(token, authorization.getUsername(), authorization.getLevel());
     }
 
     public Request.Builder getDefaultRequestBuilder() {
