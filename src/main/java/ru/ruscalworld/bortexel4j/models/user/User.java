@@ -3,7 +3,6 @@ package ru.ruscalworld.bortexel4j.models.user;
 import com.google.gson.annotations.SerializedName;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
-import ru.ruscalworld.bortexel4j.models.Model;
 
 import java.sql.Timestamp;
 
@@ -51,6 +50,10 @@ public class User {
         Action<User> action = new Action<>("/users/name/" + username, client);
         action.setType(User.class);
         return action;
+    }
+
+    public Action<UserSkin> getSkin(Bortexel4J client) {
+        return UserSkin.getByUserID(this.getId(), client);
     }
 
     public int getId() {
