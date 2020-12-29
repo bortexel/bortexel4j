@@ -20,7 +20,7 @@ public class AuthCheck {
 
     public static Action<AuthCheck> checkToken(String token) {
         Action<AuthCheck> action = new Action<>("/authorization", new Bortexel4J(token));
-        action.setType(AuthCheck.class);
+        action.setResponseType(AuthCheck.class);
         return action;
     }
 

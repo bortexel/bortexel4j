@@ -28,7 +28,13 @@ public class User {
     @SerializedName(value = "warn_count")
     private int warnCount;
 
-    public User(int id, String username, int lastLogin, Timestamp validTill, Timestamp activeTill, boolean permanent, boolean strange, int warnPower, int warnCount) {
+    @SerializedName(value = "skin_system")
+    private final String skinSystem;
+
+    @SerializedName(value = "skin_name")
+    private final String skinName;
+
+    public User(int id, String username, int lastLogin, Timestamp validTill, Timestamp activeTill, boolean permanent, boolean strange, int warnPower, int warnCount, String skinSystem, String skinName) {
         this.id = id;
         this.username = username;
         this.lastLogin = lastLogin;
@@ -38,22 +44,28 @@ public class User {
         this.strange = strange;
         this.warnPower = warnPower;
         this.warnCount = warnCount;
+        this.skinSystem = skinSystem;
+        this.skinName = skinName;
     }
 
     public static Action<User> getByID(int id, Bortexel4J client) {
         Action<User> action = new Action<>("/users/" + id, client);
-        action.setType(User.class);
+        action.setResponseType(User.class);
         return action;
     }
 
     public static Action<User> getByUsername(String username, Bortexel4J client) {
         Action<User> action = new Action<>("/users/name/" + username, client);
-        action.setType(User.class);
+        action.setResponseType(User.class);
         return action;
     }
 
     public Action<UserSkin> getSkin(Bortexel4J client) {
         return UserSkin.getByUserID(this.getId(), client);
+    }
+
+    public Action<UserSkin> setSkin(String system, String name, Bortexel4J client) {
+        return UserSkin.setByUserID(this.id, system, name, client);
     }
 
     public int getId() {
@@ -122,5 +134,13 @@ public class User {
 
     public void setWarnCount(int warnCount) {
         this.warnCount = warnCount;
+    }
+
+    public String getSkinName() {
+        return skinName;
+    }
+
+    public String getSkinSystem() {
+        return skinSystem;
     }
 }

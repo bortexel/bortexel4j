@@ -1,7 +1,7 @@
 package ru.ruscalworld.bortexel4j.core;
 
-import okhttp3.Call;
-import okhttp3.Request;
+import com.google.gson.Gson;
+import okhttp3.*;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
@@ -13,10 +13,13 @@ public class Action<T> {
     private final String endpoint;
     private final Bortexel4J client;
     private Type type;
+    private HTTPMethod method;
+    private Object body;
 
     public Action(String endpoint, Bortexel4J client) {
         this.endpoint = endpoint;
         this.client = client;
+        this.method = HTTPMethod.GET;
     }
 
     public T execute() {
@@ -51,6 +54,14 @@ public class Action<T> {
     private Request makeRequest() {
         Request.Builder builder = this.client.getDefaultRequestBuilder();
         builder.url(Bortexel4J.API_URL + endpoint);
+
+        if (this.method != HTTPMethod.GET) {
+            RequestBody body = RequestBody.create(MediaType.parse("application/json"), this.getBody());
+            builder.post(body);
+            builder.method(this.method.toString(), body);
+            builder.header("Content-Type", "application/json");
+        }
+
         return builder.build();
     }
 
@@ -58,7 +69,23 @@ public class Action<T> {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setResponseType(Type type) {
         this.type = type;
+    }
+
+    public HTTPMethod getMethod() {
+        return method;
+    }
+
+    public void setMethod(HTTPMethod method) {
+        this.method = method;
+    }
+
+    public String getBody() {
+        return new Gson().toJson(this.body);
+    }
+
+    public void setBody(Object body) {
+        this.body = body;
     }
 }
