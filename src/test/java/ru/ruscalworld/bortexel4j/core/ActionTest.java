@@ -20,6 +20,11 @@ class ActionTest {
         assertTrue(skin.getTextures().isValid());
         assertNotNull(skin.getTextures().getValue());
 
+        UserSkin skinByName = UserSkin.getByPlayerName("RuscalWorld", client).execute();
+        assertNotNull(skinByName);
+        assertTrue(skinByName.getTextures().isValid());
+        assertNotNull(skinByName.getTextures().getValue());
+
         user = User.getByUsername("RuscalWorld", client).execute();
         assertNotNull(user);
         assertEquals(1, user.getId());

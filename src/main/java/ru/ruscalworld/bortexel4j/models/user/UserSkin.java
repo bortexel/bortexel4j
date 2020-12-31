@@ -20,6 +20,12 @@ public class UserSkin {
         return action;
     }
 
+    public static Action<UserSkin> getByPlayerName(String player, Bortexel4J client) {
+        Action<UserSkin> action = new Action<>("/players/" + player + "/skin", client);
+        action.setResponseType(UserSkin.class);
+        return action;
+    }
+
     public static Action<UserSkin> setByUserID(int id, String system, String name, Bortexel4J client) {
         Action<UserSkin> action = new Action<>("/users/" + id + "/skin", client);
         action.setMethod(HTTPMethod.PATCH);
