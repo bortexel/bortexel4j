@@ -55,7 +55,7 @@ public class User {
     }
 
     public static Action<User> getByUsername(String username, Bortexel4J client) {
-        Action<User> action = new Action<>("/users/name/" + username, client);
+        Action<User> action = new Action<>("/players/" + username, client);
         action.setResponseType(User.class);
         return action;
     }
