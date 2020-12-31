@@ -20,8 +20,6 @@ class ActionTest {
 
         UserSkin skinByName = UserSkin.getByPlayerName("_WuscalRorld_", client).execute();
         assertNotNull(skinByName);
-        assertTrue(skinByName.getTextures().isValid());
-        assertNotNull(skinByName.getTextures().getValue());
 
         user = User.getByUsername("_WuscalRorld_", client).execute();
         assertNotNull(user);
@@ -29,8 +27,6 @@ class ActionTest {
 
         skin = user.getSkin(client).execute();
         assertNotNull(skin);
-        assertTrue(skin.getTextures().isValid());
-        assertNotNull(skin.getTextures().getValue());
 
         skin = user.setSkin("mojang", "Test", client).execute();
         assertNotNull(skin);
