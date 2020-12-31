@@ -17,7 +17,6 @@ class ActionTest {
 
         UserSkin skin = UserSkin.getByUserID(1228, client).execute();
         assertNotNull(skin);
-        assertNotNull(skin.getTextures().getValue());
 
         UserSkin skinByName = UserSkin.getByPlayerName("_WuscalRorld_", client).execute();
         assertNotNull(skinByName);
