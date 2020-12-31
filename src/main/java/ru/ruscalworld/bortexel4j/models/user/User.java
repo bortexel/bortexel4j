@@ -68,6 +68,10 @@ public class User {
         return UserSkin.setByUserID(this.id, system, name, client);
     }
 
+    public Action<UserSkin> resetSkin(Bortexel4J client) {
+        return UserSkin.resetByUserID(this.id, client);
+    }
+
     public int getId() {
         return id;
     }

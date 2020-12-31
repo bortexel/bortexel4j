@@ -34,6 +34,13 @@ public class UserSkin {
         return action;
     }
 
+    public static Action<UserSkin> resetByUserID(int id, Bortexel4J client) {
+        Action<UserSkin> action = new Action<>("/users/" + id + "/skin", client);
+        action.setMethod(HTTPMethod.DELETE);
+        action.setResponseType(UserSkin.class);
+        return action;
+    }
+
     public User getUser() {
         return user;
     }
