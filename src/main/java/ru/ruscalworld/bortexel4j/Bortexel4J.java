@@ -41,8 +41,6 @@ public class Bortexel4J {
 
     public static OkHttpClient getDefaultHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(5, TimeUnit.SECONDS);
-        builder.readTimeout(5, TimeUnit.SECONDS);
         return builder.build();
     }
 
