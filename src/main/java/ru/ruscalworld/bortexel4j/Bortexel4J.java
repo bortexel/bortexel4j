@@ -6,6 +6,8 @@ import okhttp3.Request;
 import ru.ruscalworld.bortexel4j.exceptions.LoginException;
 import ru.ruscalworld.bortexel4j.models.authorization.AuthCheck;
 
+import java.util.concurrent.TimeUnit;
+
 public class Bortexel4J {
     public static final String API_URL = "https://api.bortexel.ru/v3";
 
@@ -38,7 +40,10 @@ public class Bortexel4J {
     }
 
     public static OkHttpClient getDefaultHttpClient() {
-        return new OkHttpClient();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.connectTimeout(5, TimeUnit.SECONDS);
+        builder.readTimeout(5, TimeUnit.SECONDS);
+        return builder.build();
     }
 
     public static Call createCall(Request request) {
