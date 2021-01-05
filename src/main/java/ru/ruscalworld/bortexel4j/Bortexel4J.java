@@ -27,6 +27,11 @@ public class Bortexel4J {
     }
 
     public static Bortexel4J login(String token) throws LoginException {
+        return login(token, true);
+    }
+
+    public static Bortexel4J login(String token, boolean checkAuth) throws LoginException {
+        if (!checkAuth) return new Bortexel4J(token);
         AuthCheck authorization = AuthCheck.checkToken(token).execute();
         if (!authorization.isAuthorized()) throw new LoginException();
         return new Bortexel4J(token, authorization.getUsername(), authorization.getLevel());

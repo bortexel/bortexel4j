@@ -1,44 +1,28 @@
 package ru.ruscalworld.bortexel4j.core;
 
 import org.junit.jupiter.api.Test;
-import ru.ruscalworld.bortexel4j.Bortexel4J;
-import ru.ruscalworld.bortexel4j.models.photo.Photo;
-import ru.ruscalworld.bortexel4j.models.user.User;
-import ru.ruscalworld.bortexel4j.models.user.UserSkin;
+import ru.ruscalworld.bortexel4j.models.authorization.AuthCheck;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ActionTest {
+    private static final String token = System.getenv("BORTEXEL_TOKEN");
+
     @Test
-    void testRequest() {
-        Bortexel4J client = Bortexel4J.login(System.getenv("BORTEXEL_TOKEN"));
-        User user = User.getByID(1228, client).execute();
-        assertNotNull(user);
-        assertEquals(1228, user.getId());
+    void execute() {
+        AuthCheck authorization = AuthCheck.checkToken(token).execute();
+        assertNotNull(authorization);
+        assertTrue(authorization.isAuthorized());
+    }
 
-        UserSkin skin = UserSkin.getByUserID(1228, client).execute();
-        assertNotNull(skin);
+    private AuthCheck authorization;
 
-        UserSkin skinByName = UserSkin.getByPlayerName("_WuscalRorld_", client).execute();
-        assertNotNull(skinByName);
+    @Test
+    void executeAsync() throws InterruptedException {
+        AuthCheck.checkToken(token).executeAsync(response -> authorization = response);
+        Thread.sleep(1000);
 
-        user = User.getByUsername("_WuscalRorld_", client).execute();
-        assertNotNull(user);
-        assertEquals(1228, user.getId());
-
-        skin = user.getSkin(client).execute();
-        assertNotNull(skin);
-
-        skin = user.setSkin("mojang", "Test", client).execute();
-        assertNotNull(skin);
-        assertEquals("Test", skin.getUser().getSkinName());
-
-        skin = user.resetSkin(client).execute();
-        assertNotNull(skin);
-        assertNull(skin.getUser().getSkinName());
-
-        Photo photo = Photo.getByID(2, client).execute();
-        assertNotNull(photo);
-        assertEquals(2, photo.getId());
+        assertNotNull(authorization);
+        assertTrue(authorization.isAuthorized());
     }
 }
