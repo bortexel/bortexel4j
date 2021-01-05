@@ -53,7 +53,7 @@ public class Action<T> {
 
     private Request makeRequest() {
         Request.Builder builder = this.client.getDefaultRequestBuilder();
-        builder.url(Bortexel4J.API_URL + endpoint);
+        builder.url(this.client.getApiUrl() + endpoint);
 
         if (this.method != HTTPMethod.GET) {
             RequestBody body = RequestBody.create(MediaType.parse("application/json"), this.getBody());

@@ -9,11 +9,10 @@ import ru.ruscalworld.bortexel4j.models.authorization.AuthCheck;
 import java.util.concurrent.TimeUnit;
 
 public class Bortexel4J {
-    public static final String API_URL = "https://api.bortexel.ru/v3";
-
     private final String token;
     private final String owner;
     private final int level;
+    private String apiUrl = "https://api.bortexel.ru/v3";
 
     private Bortexel4J(String token, String owner, int level) {
         this.token = token;
@@ -58,5 +57,13 @@ public class Bortexel4J {
 
     public String getToken() {
         return token;
+    }
+
+    public String getApiUrl() {
+        return apiUrl;
+    }
+
+    public void setApiUrl(String apiUrl) {
+        this.apiUrl = apiUrl;
     }
 }
