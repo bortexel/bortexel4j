@@ -20,13 +20,21 @@ public class Item {
     }
 
     public static Action<Item> getByID(String id) {
-        Action<Item> action = new Action<>("/economy/items/" + id, new Bortexel4J());
+        return getByID(id, new Bortexel4J());
+    }
+
+    public static Action<Item> getByID(String id, Bortexel4J client) {
+        Action<Item> action = new Action<>("/economy/items/" + id, client);
         action.setResponseType(Item.class);
         return action;
     }
 
     public Action<ItemPrices> getPrices() {
-        Action<ItemPrices> action = new Action<>("/economy/items/" + id + "/prices", new Bortexel4J());
+        return getPrices(new Bortexel4J());
+    }
+
+    public Action<ItemPrices> getPrices(Bortexel4J client) {
+        Action<ItemPrices> action = new Action<>("/economy/items/" + id + "/prices", client);
         action.setResponseType(ItemPrices.class);
         return action;
     }

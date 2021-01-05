@@ -22,13 +22,21 @@ public class Photo {
     }
 
     public static Action<Photo> getByID(int id) {
-        Action<Photo> action = new Action<>("/photos/" + id, new Bortexel4J());
+        return getByID(id, new Bortexel4J());
+    }
+
+    public static Action<Photo> getByID(int id, Bortexel4J client) {
+        Action<Photo> action = new Action<>("/photos/" + id, client);
         action.setResponseType(Photo.class);
         return action;
     }
 
     public static Action<List<Photo>> getAll() {
-        Action<List<Photo>> action = new Action<>("/photos", new Bortexel4J());
+        return getAll(new Bortexel4J());
+    }
+
+    public static Action<List<Photo>> getAll(Bortexel4J client) {
+        Action<List<Photo>> action = new Action<>("/photos", client);
         action.setResponseType(TypeToken.getParameterized(List.class, Photo.class).getType());
         return action;
     }
