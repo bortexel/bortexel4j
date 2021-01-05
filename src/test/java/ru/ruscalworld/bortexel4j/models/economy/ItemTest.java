@@ -19,8 +19,8 @@ class ItemTest {
         Item item = Item.getByID("diamond_axe").execute();
         assertNotNull(item);
 
-        List<Item.ItemPrice> prices = item.getPrices().execute();
+        Item.ItemPrices prices = item.getPrices().execute();
         assertNotNull(prices);
-        assertNotEquals(0, prices.size());
+        assertNotEquals(0, prices.getPrices().size());
     }
 }

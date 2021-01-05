@@ -25,10 +25,28 @@ public class Item {
         return action;
     }
 
-    public Action<List<ItemPrice>> getPrices() {
-        Action<List<ItemPrice>> action = new Action<>("/economy/items/" + id + "/prices", new Bortexel4J());
-        action.setResponseType(TypeToken.getParameterized(List.class, ItemPrice.class).getType());
+    public Action<ItemPrices> getPrices() {
+        Action<ItemPrices> action = new Action<>("/economy/items/" + id + "/prices", new Bortexel4J());
+        action.setResponseType(ItemPrices.class);
         return action;
+    }
+
+    public static class ItemPrices {
+        private final Item item;
+        private final List<ItemPrice> prices;
+
+        public ItemPrices(Item item, List<ItemPrice> prices) {
+            this.item = item;
+            this.prices = prices;
+        }
+
+        public Item getItem() {
+            return item;
+        }
+
+        public List<ItemPrice> getPrices() {
+            return prices;
+        }
     }
 
     public static class ItemPrice {
