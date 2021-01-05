@@ -2,6 +2,7 @@ package ru.ruscalworld.bortexel4j.core;
 
 import org.junit.jupiter.api.Test;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
+import ru.ruscalworld.bortexel4j.models.photo.Photo;
 import ru.ruscalworld.bortexel4j.models.user.User;
 import ru.ruscalworld.bortexel4j.models.user.UserSkin;
 
@@ -35,5 +36,9 @@ class ActionTest {
         skin = user.resetSkin(client).execute();
         assertNotNull(skin);
         assertNull(skin.getUser().getSkinName());
+
+        Photo photo = Photo.getByID(2, client).execute();
+        assertNotNull(photo);
+        assertEquals(2, photo.getId());
     }
 }
