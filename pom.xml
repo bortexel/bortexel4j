@@ -6,7 +6,7 @@
 
     <groupId>ru.bortexel</groupId>
     <artifactId>Bortexel4J</artifactId>
-    <version>1.0.5P</version>
+    <version>1.0.6</version>
     <packaging>jar</packaging>
 
     <properties>
