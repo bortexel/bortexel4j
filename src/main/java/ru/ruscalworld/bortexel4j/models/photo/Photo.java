@@ -21,14 +21,14 @@ public class Photo {
         this.season = season;
     }
 
-    public static Action<Photo> getByID(int id, Bortexel4J client) {
-        Action<Photo> action = new Action<>("/photos/" + id, client);
+    public static Action<Photo> getByID(int id) {
+        Action<Photo> action = new Action<>("/photos/" + id, new Bortexel4J());
         action.setResponseType(Photo.class);
         return action;
     }
 
-    public static Action<List<Photo>> getAll(Bortexel4J client) {
-        Action<List<Photo>> action = new Action<>("/photos", client);
+    public static Action<List<Photo>> getAll() {
+        Action<List<Photo>> action = new Action<>("/photos", new Bortexel4J());
         action.setResponseType(TypeToken.getParameterized(List.class, Photo.class).getType());
         return action;
     }

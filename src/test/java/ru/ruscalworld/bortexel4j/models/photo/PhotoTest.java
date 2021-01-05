@@ -8,18 +8,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PhotoTest {
-    private static final Bortexel4J client = Bortexel4J.login(System.getenv("BORTEXEL_TOKEN"), false);
-
     @Test
     void getByID() {
-        Photo photo = Photo.getByID(2, client).execute();
+        Photo photo = Photo.getByID(2).execute();
         assertNotNull(photo);
         assertEquals(2, photo.getId());
     }
 
     @Test
     void getAll() {
-        List<Photo> photos = Photo.getAll(client).execute();
+        List<Photo> photos = Photo.getAll().execute();
         assertNotEquals(0, photos.size());
     }
 }

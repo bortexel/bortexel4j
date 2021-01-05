@@ -26,6 +26,12 @@ public class Bortexel4J {
         this.level = 0;
     }
 
+    public Bortexel4J() {
+        this.token = null;
+        this.owner = null;
+        this.level = 0;
+    }
+
     public static Bortexel4J login(String token) throws LoginException {
         return login(token, true);
     }
@@ -39,7 +45,7 @@ public class Bortexel4J {
 
     public Request.Builder getDefaultRequestBuilder() {
         Request.Builder builder = new Request.Builder();
-        builder.header("Authorization", "Bearer " + this.token);
+        if (this.token != null) builder.header("Authorization", "Bearer " + this.token);
         return builder;
     }
 
