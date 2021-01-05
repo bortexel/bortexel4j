@@ -32,6 +32,10 @@ public class Bortexel4J {
         this.level = 0;
     }
 
+    public static Bortexel4J anonymous() {
+        return new Bortexel4J();
+    }
+
     public static Bortexel4J login(String token) throws LoginException {
         return login(token, true);
     }
