@@ -3,6 +3,7 @@ package ru.ruscalworld.bortexel4j.models.economy;
 import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
+import ru.ruscalworld.bortexel4j.util.BortexelCDN;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -46,6 +47,10 @@ public class Item {
         public float getPrice() {
             return price;
         }
+    }
+
+    public String getIconURL() {
+        return BortexelCDN.getItemIconURL(this.getId());
     }
 
     public String getId() {
