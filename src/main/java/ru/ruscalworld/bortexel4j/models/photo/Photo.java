@@ -1,7 +1,10 @@
 package ru.ruscalworld.bortexel4j.models.photo;
 
+import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
+
+import java.util.List;
 
 public class Photo {
     private final int id;
@@ -21,6 +24,12 @@ public class Photo {
     public static Action<Photo> getByID(int id, Bortexel4J client) {
         Action<Photo> action = new Action<>("/photos/" + id, client);
         action.setResponseType(Photo.class);
+        return action;
+    }
+
+    public static Action<List<Photo>> getAll(Bortexel4J client) {
+        Action<List<Photo>> action = new Action<>("/photos", client);
+        action.setResponseType(TypeToken.getParameterized(List.class, Photo.class).getType());
         return action;
     }
 
