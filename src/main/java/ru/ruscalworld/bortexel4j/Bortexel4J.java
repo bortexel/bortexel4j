@@ -3,8 +3,10 @@ package ru.ruscalworld.bortexel4j;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import ru.ruscalworld.bortexel4j.core.Action;
 import ru.ruscalworld.bortexel4j.exceptions.LoginException;
 import ru.ruscalworld.bortexel4j.models.authorization.AuthCheck;
+import ru.ruscalworld.bortexel4j.models.user.User;
 
 import java.util.concurrent.TimeUnit;
 
@@ -60,6 +62,10 @@ public class Bortexel4J {
 
     public static Call createCall(Request request) {
         return getDefaultHttpClient().newCall(request);
+    }
+
+    public Action<User> getUserByID(int id) {
+        return User.getByID(id, this);
     }
 
     public int getLevel() {
