@@ -1,5 +1,6 @@
 package ru.ruscalworld.bortexel4j.models.photo;
 
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
@@ -10,14 +11,17 @@ public class Photo {
     private final int id;
     private String url;
     private String description;
-    private String author;
+
+    @SerializedName(value = "author_name")
+    private String authorName;
+
     private int season;
 
     public Photo(int id, String url, String description, String author, int season) {
         this.id = id;
         this.url = url;
         this.description = description;
-        this.author = author;
+        this.authorName = author;
         this.season = season;
     }
 
@@ -61,12 +65,12 @@ public class Photo {
         this.description = description;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
     public int getSeason() {
