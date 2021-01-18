@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
 
+import java.net.InetAddress;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -49,6 +50,16 @@ public class Ban {
 
     public static Action<List<Ban>> getAll(Bortexel4J client) {
         Action<List<Ban>> action = new Action<>("/bans", client);
+        action.setResponseType(TypeToken.getParameterized(List.class, Ban.class).getType());
+        return action;
+    }
+
+    public static Action<List<Ban>> getByAddress(InetAddress address, Bortexel4J client) {
+        return getByAddress(address.getHostAddress(), client);
+    }
+
+    public static Action<List<Ban>> getByAddress(String address, Bortexel4J client) {
+        Action<List<Ban>> action = new Action<>("/addresses/" + address + "/bans", client);
         action.setResponseType(TypeToken.getParameterized(List.class, Ban.class).getType());
         return action;
     }
