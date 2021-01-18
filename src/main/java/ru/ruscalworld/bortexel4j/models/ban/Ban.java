@@ -12,10 +12,12 @@ import java.util.List;
 public class Ban {
     private final int id;
     private final String username;
+    private final int user;
     private String reason;
 
     @SerializedName(value = "banned_by")
     private final String bannedBy;
+    private final int admin;
 
     private final Timestamp time;
     private Timestamp expire;
@@ -29,11 +31,13 @@ public class Ban {
 
     private boolean paused;
 
-    public Ban(int id, String username, String reason, String bannedBy, Timestamp time, Timestamp expire, String ip, boolean byName, boolean byIP, boolean paused) {
+    public Ban(int id, String username, int user, String reason, String bannedBy, int admin, Timestamp time, Timestamp expire, String ip, boolean byName, boolean byIP, boolean paused) {
         this.id = id;
         this.username = username;
+        this.user = user;
         this.reason = reason;
         this.bannedBy = bannedBy;
+        this.admin = admin;
         this.time = time;
         this.expire = expire;
         this.ip = ip;
@@ -126,5 +130,13 @@ public class Ban {
 
     public void setPaused(boolean paused) {
         this.paused = paused;
+    }
+
+    public int getAdminID() {
+        return admin;
+    }
+
+    public int getUserID() {
+        return user;
     }
 }
