@@ -25,8 +25,7 @@ public class Action<T> {
     public T execute() {
         try {
             Response response = Bortexel4J.createCall(this.makeRequest()).execute();
-            if (response.body() == null) throw new RuntimeException("Body of API response is empty");
-            ru.ruscalworld.bortexel4j.core.Response<T> bResponse = new ResponseHandler<T>().handle(this.type, response.body().string());
+            ru.ruscalworld.bortexel4j.core.Response<T> bResponse = new ResponseHandler<T>().handle(this.type, response);
             if (bResponse != null) return bResponse.getResponse();
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,8 +43,7 @@ public class Action<T> {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if (response.body() == null) throw new RuntimeException("Body of API response is empty");
-                ru.ruscalworld.bortexel4j.core.Response<T> bResponse = new ResponseHandler<T>().handle(type, response.body().string());
+                ru.ruscalworld.bortexel4j.core.Response<T> bResponse = new ResponseHandler<T>().handle(type, response);
                 if (bResponse != null) callback.handle(bResponse.getResponse());
             }
         });

@@ -6,13 +6,20 @@ import ru.ruscalworld.bortexel4j.exceptions.AuthorizationException;
 import ru.ruscalworld.bortexel4j.exceptions.BortexelException;
 import ru.ruscalworld.bortexel4j.exceptions.NotFoundException;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 public class ResponseHandler<T> {
-    public Response<T> handle(Type type, String rawResponse) throws RuntimeException {
+    public Response<T> handle(Type type, okhttp3.Response apiResponse) throws RuntimeException, IOException {
+        if (apiResponse.header("Content-Type") == null) throw new RuntimeException("API server has returned invalid Conent-Type header");
+        if (!Objects.requireNonNull(apiResponse.header("Content-Type")).equalsIgnoreCase("application/json"))
+            throw new RuntimeException("API server has returned invalid Conent-Type header");
+        if (apiResponse.body() == null) throw new RuntimeException("Body of API response is empty");
+
         Gson gson = new Gson();
         Type fullType = TypeToken.getParameterized(Response.class, type).getType();
-        Response<T> response = gson.fromJson(rawResponse, fullType);
+        Response<T> response = gson.fromJson(apiResponse.body().string(), fullType);
 
         if (response == null) return null;
 
