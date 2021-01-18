@@ -3,8 +3,10 @@ package ru.ruscalworld.bortexel4j.models.user;
 import com.google.gson.annotations.SerializedName;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
+import ru.ruscalworld.bortexel4j.models.ban.Ban;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class User {
     private final int id;
@@ -65,11 +67,39 @@ public class User {
     }
 
     public Action<UserSkin> setSkin(String system, String name, Bortexel4J client) {
-        return UserSkin.setByUserID(this.id, system, name, client);
+        return UserSkin.setByUserID(this.getId(), system, name, client);
     }
 
     public Action<UserSkin> resetSkin(Bortexel4J client) {
-        return UserSkin.resetByUserID(this.id, client);
+        return UserSkin.resetByUserID(this.getId(), client);
+    }
+
+    public Action<UserBans> getBans(Bortexel4J client) {
+        return UserBans.getByUserID(this.getId(), client);
+    }
+
+    public static class UserBans {
+        private final User user;
+        private final List<Ban> bans;
+
+        public UserBans(User user, List<Ban> bans) {
+            this.user = user;
+            this.bans = bans;
+        }
+
+        public static Action<UserBans> getByUserID(int id, Bortexel4J client) {
+            Action<UserBans> action = new Action<>("/users/" + id + "/bans", client);
+            action.setResponseType(UserBans.class);
+            return action;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public List<Ban> getBans() {
+            return bans;
+        }
     }
 
     public int getId() {

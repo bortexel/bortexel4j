@@ -56,4 +56,12 @@ class UserTest {
         assertFalse(textures.isValid());
         assertNull(textures.getValue());
     }
+
+    @Test
+    void getBans() {
+        User.UserBans bans = User.UserBans.getByUserID(289, client).execute();
+        assertNotNull(bans);
+        assertEquals(289, bans.getUser().getId());
+        assertNotEquals(0, bans.getBans().size());
+    }
 }
