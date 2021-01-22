@@ -3,6 +3,7 @@ package ru.ruscalworld.bortexel4j.models.user;
 import com.google.gson.annotations.SerializedName;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
+import ru.ruscalworld.bortexel4j.models.account.Account;
 import ru.ruscalworld.bortexel4j.models.ban.Ban;
 
 import java.sql.Timestamp;
@@ -72,43 +73,23 @@ public class User {
     }
 
     public Action<UserSkin> getSkin(Bortexel4J client) {
-        return UserSkin.getByUserID(this.getId(), client);
+        return UserSkin.getByUserID(this.getID(), client);
     }
 
     public Action<UserSkin> setSkin(String system, String name, Bortexel4J client) {
-        return UserSkin.setByUserID(this.getId(), system, name, client);
+        return UserSkin.setByUserID(this.getID(), system, name, client);
     }
 
     public Action<UserSkin> resetSkin(Bortexel4J client) {
-        return UserSkin.resetByUserID(this.getId(), client);
+        return UserSkin.resetByUserID(this.getID(), client);
     }
 
     public Action<UserBans> getBans(Bortexel4J client) {
-        return UserBans.getByUserID(this.getId(), client);
+        return UserBans.getByUserID(this.getID(), client);
     }
 
-    public int getAllowFrom() {
-        return allowFrom;
-    }
-
-    public void setAllowFrom(int allowFrom) {
-        this.allowFrom = allowFrom;
-    }
-
-    public int getAllowTill() {
-        return allowTill;
-    }
-
-    public void setAllowTill(int allowTill) {
-        this.allowTill = allowTill;
-    }
-
-    public int getMaxFraudScore() {
-        return maxFraudScore;
-    }
-
-    public void setMaxFraudScore(int maxFraudScore) {
-        this.maxFraudScore = maxFraudScore;
+    public Action<UserAccount> getAccount(Bortexel4J client) {
+        return UserAccount.getByUserID(this.getID(), client);
     }
 
     public static class UserBans {
@@ -135,7 +116,31 @@ public class User {
         }
     }
 
-    public int getId() {
+    public static class UserAccount {
+        private final User user;
+        private final Account account;
+
+        public UserAccount(User user, Account account) {
+            this.user = user;
+            this.account = account;
+        }
+
+        public static Action<UserAccount> getByUserID(int id, Bortexel4J client) {
+            Action<UserAccount> action = new Action<>("/users/" + id + "/account", client);
+            action.setResponseType(UserAccount.class);
+            return action;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public Account getAccount() {
+            return account;
+        }
+    }
+
+    public int getID() {
         return id;
     }
 
@@ -209,5 +214,29 @@ public class User {
 
     public String getSkinSystem() {
         return skinSystem;
+    }
+
+    public int getAllowFrom() {
+        return allowFrom;
+    }
+
+    public void setAllowFrom(int allowFrom) {
+        this.allowFrom = allowFrom;
+    }
+
+    public int getAllowTill() {
+        return allowTill;
+    }
+
+    public void setAllowTill(int allowTill) {
+        this.allowTill = allowTill;
+    }
+
+    public int getMaxFraudScore() {
+        return maxFraudScore;
+    }
+
+    public void setMaxFraudScore(int maxFraudScore) {
+        this.maxFraudScore = maxFraudScore;
     }
 }
