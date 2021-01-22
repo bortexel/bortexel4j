@@ -93,7 +93,7 @@ public class Season {
         }
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 

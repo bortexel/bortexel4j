@@ -1,7 +1,6 @@
 package ru.ruscalworld.bortexel4j.models.photo;
 
 import org.junit.jupiter.api.Test;
-import ru.ruscalworld.bortexel4j.Bortexel4J;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ class PhotoTest {
     void getByID() {
         Photo photo = Photo.getByID(2).execute();
         assertNotNull(photo);
-        assertEquals(2, photo.getId());
+        assertEquals(2, photo.getID());
     }
 
     @Test

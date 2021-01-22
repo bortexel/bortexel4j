@@ -16,7 +16,7 @@ class BanTest {
     void getByID() {
         Ban ban = Ban.getByID(1, client).execute();
         assertNotNull(ban);
-        assertEquals(1, ban.getId());
+        assertEquals(1, ban.getID());
     }
 
     @Test
@@ -33,7 +33,7 @@ class BanTest {
         assertNotEquals(0, bans.size());
 
         Ban ban = bans.get(0);
-        assertEquals(1, ban.getId());
+        assertEquals(1, ban.getID());
         assertFalse(ban.isActual());
         assertFalse(ban.isPermanent());
         assertFalse(ban.isPaused());
@@ -46,6 +46,6 @@ class BanTest {
 
         assertNotNull(bans);
         assertNotEquals(0, bans.size());
-        assertEquals(1, bans.get(0).getId());
+        assertEquals(1, bans.get(0).getID());
     }
 }

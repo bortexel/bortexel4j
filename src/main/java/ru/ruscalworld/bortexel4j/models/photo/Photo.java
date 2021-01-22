@@ -45,15 +45,15 @@ public class Photo {
         return action;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
-    public String getUrl() {
+    public String getURL() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public void setURL(String url) {
         this.url = url;
     }
 

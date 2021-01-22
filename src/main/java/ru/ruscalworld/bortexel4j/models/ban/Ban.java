@@ -68,7 +68,7 @@ public class Ban {
         return action;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
