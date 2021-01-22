@@ -21,6 +21,15 @@ public class User {
     @SerializedName(value = "active_till")
     private Timestamp activeTill;
 
+    @SerializedName(value = "allow_from")
+    private int allowFrom;
+
+    @SerializedName(value = "allow_till")
+    private int allowTill;
+
+    @SerializedName(value = "max_fraud_score")
+    private int maxFraudScore;
+
     private boolean permanent;
     private boolean strange;
 
@@ -76,6 +85,30 @@ public class User {
 
     public Action<UserBans> getBans(Bortexel4J client) {
         return UserBans.getByUserID(this.getId(), client);
+    }
+
+    public int getAllowFrom() {
+        return allowFrom;
+    }
+
+    public void setAllowFrom(int allowFrom) {
+        this.allowFrom = allowFrom;
+    }
+
+    public int getAllowTill() {
+        return allowTill;
+    }
+
+    public void setAllowTill(int allowTill) {
+        this.allowTill = allowTill;
+    }
+
+    public int getMaxFraudScore() {
+        return maxFraudScore;
+    }
+
+    public void setMaxFraudScore(int maxFraudScore) {
+        this.maxFraudScore = maxFraudScore;
     }
 
     public static class UserBans {
