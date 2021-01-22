@@ -31,7 +31,12 @@ class BanTest {
         List<Ban> bans = Ban.getByAddress("195.250.47.17", client).execute();
         assertNotNull(bans);
         assertNotEquals(0, bans.size());
-        assertEquals(1, bans.get(0).getId());
+
+        Ban ban = bans.get(0);
+        assertEquals(1, ban.getId());
+        assertFalse(ban.isActual());
+        assertFalse(ban.isPermanent());
+        assertFalse(ban.isPaused());
     }
 
     @Test

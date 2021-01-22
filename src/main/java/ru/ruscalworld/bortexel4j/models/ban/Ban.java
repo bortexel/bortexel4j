@@ -139,4 +139,12 @@ public class Ban {
     public int getUserID() {
         return user;
     }
+
+    public boolean isPermanent() {
+        return this.getExpireTime().after(new Timestamp(1893456000000L));
+    }
+
+    public boolean isActual() {
+        return this.getExpireTime().after(new Timestamp(System.currentTimeMillis())) && !this.isPaused();
+    }
 }
