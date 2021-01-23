@@ -13,37 +13,37 @@ public class User {
     private final int id;
     private String username;
 
-    @SerializedName(value = "last_login")
+    @SerializedName("last_login")
     private int lastLogin;
 
-    @SerializedName(value = "valid_till")
+    @SerializedName("valid_till")
     private Timestamp validTill;
 
-    @SerializedName(value = "active_till")
+    @SerializedName("active_till")
     private Timestamp activeTill;
 
-    @SerializedName(value = "allow_from")
+    @SerializedName("allow_from")
     private int allowFrom;
 
-    @SerializedName(value = "allow_till")
+    @SerializedName("allow_till")
     private int allowTill;
 
-    @SerializedName(value = "max_fraud_score")
-    private int maxFraudScore;
+    @SerializedName("deny_proxy")
+    private boolean denyProxy;
 
     private boolean permanent;
     private boolean strange;
 
-    @SerializedName(value = "warn_power")
+    @SerializedName("warn_power")
     private int warnPower;
 
-    @SerializedName(value = "warn_count")
+    @SerializedName("warn_count")
     private int warnCount;
 
-    @SerializedName(value = "skin_system")
+    @SerializedName("skin_system")
     private final String skinSystem;
 
-    @SerializedName(value = "skin_name")
+    @SerializedName("skin_name")
     private final String skinName;
 
     public User(int id, String username, int lastLogin, Timestamp validTill, Timestamp activeTill, boolean permanent, boolean strange, int warnPower, int warnCount, String skinSystem, String skinName) {
@@ -232,11 +232,11 @@ public class User {
         this.allowTill = allowTill;
     }
 
-    public int getMaxFraudScore() {
-        return maxFraudScore;
+    public boolean isProxyDenied() {
+        return denyProxy;
     }
 
-    public void setMaxFraudScore(int maxFraudScore) {
-        this.maxFraudScore = maxFraudScore;
+    public void setProxyDenied(boolean denyProxy) {
+        this.denyProxy = denyProxy;
     }
 }
