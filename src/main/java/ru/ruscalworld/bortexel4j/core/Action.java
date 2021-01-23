@@ -15,11 +15,20 @@ public class Action<T> {
     private Type type;
     private HTTPMethod method;
     private Object body;
+    private final boolean handleResult;
+
+    public Action(String endpoint, boolean handleResult, Bortexel4J client) {
+        this.endpoint = endpoint;
+        this.client = client;
+        this.method = HTTPMethod.GET;
+        this.handleResult = handleResult;
+    }
 
     public Action(String endpoint, Bortexel4J client) {
         this.endpoint = endpoint;
         this.client = client;
         this.method = HTTPMethod.GET;
+        this.handleResult = true;
     }
 
     public T execute() {
@@ -34,6 +43,10 @@ public class Action<T> {
         return null;
     }
 
+    public void executeAsync() {
+        executeAsync(response -> {});
+    }
+
     public void executeAsync(Callback<T> callback) {
         Bortexel4J.createCall(this.makeRequest()).enqueue(new okhttp3.Callback() {
             @Override
@@ -43,6 +56,7 @@ public class Action<T> {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (!handleResult) return;
                 ru.ruscalworld.bortexel4j.core.Response<T> bResponse = new ResponseHandler<T>().handle(type, response);
                 if (bResponse != null) callback.handle(bResponse.getResponse());
             }
@@ -85,5 +99,9 @@ public class Action<T> {
 
     public void setBody(Object body) {
         this.body = body;
+    }
+
+    public boolean isHandleResult() {
+        return handleResult;
     }
 }
