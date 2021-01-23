@@ -7,7 +7,7 @@ import ru.ruscalworld.bortexel4j.models.account.Account;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
-    private static final Bortexel4J client = Bortexel4J.login(System.getenv("BORTEXEL_TOKEN"), false);
+    private static final Bortexel4J client = Bortexel4J.login();
 
     @Test
     void getByID() {

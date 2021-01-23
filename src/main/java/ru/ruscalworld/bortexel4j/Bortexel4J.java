@@ -11,15 +11,25 @@ import ru.ruscalworld.bortexel4j.models.user.User;
 import java.util.concurrent.TimeUnit;
 
 public class Bortexel4J {
+    public static final String DEFAULT_API_URL = "https://api.bortexel.ru/v3";
+
     private final String token;
     private final String owner;
     private final int level;
-    private String apiUrl = "https://api.bortexel.ru/v3";
+    private String apiUrl = DEFAULT_API_URL;
 
-    private Bortexel4J(String token, String owner, int level) {
+    private Bortexel4J(String token, String owner, int level, String apiUrl) {
         this.token = token;
         this.owner = owner;
         this.level = level;
+        this.apiUrl = apiUrl;
+    }
+
+    public Bortexel4J(String token, String apiUrl) {
+        this.token = token;
+        this.owner = null;
+        this.level = 0;
+        this.apiUrl = apiUrl;
     }
 
     public Bortexel4J(String token) {
@@ -39,14 +49,22 @@ public class Bortexel4J {
     }
 
     public static Bortexel4J login(String token) throws LoginException {
-        return login(token, true);
+        return login(token, DEFAULT_API_URL, true);
     }
 
-    public static Bortexel4J login(String token, boolean checkAuth) throws LoginException {
-        if (!checkAuth) return new Bortexel4J(token);
+    public static Bortexel4J login(String token, String apiUrl) {
+        return login(token, apiUrl, true);
+    }
+
+    public static Bortexel4J login(String token, String apiUrl, boolean checkAuth) throws LoginException {
+        if (!checkAuth) return new Bortexel4J(token, apiUrl);
         AuthCheck authorization = AuthCheck.checkToken(token).execute();
         if (!authorization.isAuthorized()) throw new LoginException();
-        return new Bortexel4J(token, authorization.getUsername(), authorization.getLevel());
+        return new Bortexel4J(token, authorization.getUsername(), authorization.getLevel(), apiUrl);
+    }
+
+    public static Bortexel4J login() {
+        return login(System.getenv("BORTEXEL_TOKEN"), DEFAULT_API_URL, false);
     }
 
     public Request.Builder getDefaultRequestBuilder() {

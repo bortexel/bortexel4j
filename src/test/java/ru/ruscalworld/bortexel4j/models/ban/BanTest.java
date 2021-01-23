@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BanTest {
-    private static final Bortexel4J client = Bortexel4J.login(System.getenv("BORTEXEL_TOKEN"), false);
+    private static final Bortexel4J client = Bortexel4J.login();
 
     @Test
     void getByID() {
