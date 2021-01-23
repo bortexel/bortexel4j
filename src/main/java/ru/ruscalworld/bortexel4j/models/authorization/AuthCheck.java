@@ -24,6 +24,12 @@ public class AuthCheck {
         return action;
     }
 
+    public static Action<AuthCheck> checkToken(Bortexel4J client) {
+        Action<AuthCheck> action = new Action<>("/authorization", client);
+        action.setResponseType(AuthCheck.class);
+        return action;
+    }
+
     public boolean isAuthorized() {
         return authorized;
     }

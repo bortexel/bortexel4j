@@ -57,8 +57,9 @@ public class Bortexel4J {
     }
 
     public static Bortexel4J login(String token, String apiUrl, boolean checkAuth) throws LoginException {
-        if (!checkAuth) return new Bortexel4J(token, apiUrl);
-        AuthCheck authorization = AuthCheck.checkToken(token).execute();
+        Bortexel4J client = new Bortexel4J(token, apiUrl);
+        if (!checkAuth) return client;
+        AuthCheck authorization = AuthCheck.checkToken(client).execute();
         if (!authorization.isAuthorized()) throw new LoginException();
         return new Bortexel4J(token, authorization.getUsername(), authorization.getLevel(), apiUrl);
     }
