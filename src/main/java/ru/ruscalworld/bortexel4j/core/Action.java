@@ -34,6 +34,7 @@ public class Action<T> {
     public T execute() {
         try {
             Response response = Bortexel4J.createCall(this.makeRequest()).execute();
+            if (!this.handleResult) return null;
             ru.ruscalworld.bortexel4j.core.Response<T> bResponse = new ResponseHandler<T>().handle(this.type, response);
             if (bResponse != null) return bResponse.getResponse();
         } catch (IOException e) {
