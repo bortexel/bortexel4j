@@ -34,9 +34,13 @@ public class Action<T> {
     public T execute() {
         try {
             Response response = Bortexel4J.createCall(this.makeRequest()).execute();
-            if (!this.handleResult) return null;
-            ru.ruscalworld.bortexel4j.core.Response<T> bResponse = new ResponseHandler<T>().handle(this.type, response);
-            if (bResponse != null) return bResponse.getResponse();
+            if (this.handleResult) {
+                ru.ruscalworld.bortexel4j.core.Response<T> bResponse = new ResponseHandler<T>().handle(this.type, response);
+                if (bResponse != null) return bResponse.getResponse();
+            } else {
+                if (response.body() != null) response.body().close();
+                return null;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,9 +61,10 @@ public class Action<T> {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if (!handleResult) return;
-                ru.ruscalworld.bortexel4j.core.Response<T> bResponse = new ResponseHandler<T>().handle(type, response);
-                if (bResponse != null) callback.handle(bResponse.getResponse());
+                if (handleResult) {
+                    ru.ruscalworld.bortexel4j.core.Response<T> bResponse = new ResponseHandler<T>().handle(type, response);
+                    if (bResponse != null) callback.handle(bResponse.getResponse());
+                } else if (response.body() != null) response.body().close();
             }
         });
     }
