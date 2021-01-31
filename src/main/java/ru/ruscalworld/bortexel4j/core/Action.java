@@ -5,26 +5,28 @@ import okhttp3.*;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
+import ru.ruscalworld.bortexel4j.Client;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 
 public class Action<T> {
     private final String endpoint;
-    private final Bortexel4J client;
+    private final Client client;
     private Type type;
     private HTTPMethod method;
     private Object body;
     private final boolean handleResult;
+    private ResponseHandler<T> responseHandler = new APIResponseHandler<>();
 
-    public Action(String endpoint, boolean handleResult, Bortexel4J client) {
+    public Action(String endpoint, boolean handleResult, Client client) {
         this.endpoint = endpoint;
         this.client = client;
         this.method = HTTPMethod.GET;
         this.handleResult = handleResult;
     }
 
-    public Action(String endpoint, Bortexel4J client) {
+    public Action(String endpoint, Client client) {
         this.endpoint = endpoint;
         this.client = client;
         this.method = HTTPMethod.GET;
@@ -35,7 +37,7 @@ public class Action<T> {
         try {
             Response response = Bortexel4J.createCall(this.makeRequest()).execute();
             if (this.handleResult) {
-                ru.ruscalworld.bortexel4j.core.Response<T> bResponse = new ResponseHandler<T>().handle(this.type, response);
+                ru.ruscalworld.bortexel4j.core.Response<T> bResponse = getResponseHandler().handle(this.type, response);
                 if (bResponse != null) return bResponse.getResponse();
             } else {
                 if (response.body() != null) response.body().close();
@@ -62,7 +64,7 @@ public class Action<T> {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (handleResult) {
-                    ru.ruscalworld.bortexel4j.core.Response<T> bResponse = new ResponseHandler<T>().handle(type, response);
+                    ru.ruscalworld.bortexel4j.core.Response<T> bResponse = getResponseHandler().handle(type, response);
                     if (bResponse != null) callback.handle(bResponse.getResponse());
                 } else if (response.body() != null) response.body().close();
             }
@@ -109,5 +111,13 @@ public class Action<T> {
 
     public boolean isHandleResult() {
         return handleResult;
+    }
+
+    public ResponseHandler<T> getResponseHandler() {
+        return responseHandler;
+    }
+
+    public void setResponseHandler(ResponseHandler<T> responseHandler) {
+        this.responseHandler = responseHandler;
     }
 }
