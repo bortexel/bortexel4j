@@ -54,18 +54,26 @@ public class Action<T> {
         executeAsync(response -> {});
     }
 
-    public void executeAsync(Callback<T> callback) {
+    public void executeAsync(Callback<T> success) {
+        executeAsync(success, error -> {});
+    }
+
+    public void executeAsync(Callback<T> success, Callback<Exception> error) {
         Bortexel4J.createCall(this.makeRequest()).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                callback.handle(null);
+                error.handle(e);
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
                 if (handleResult) {
-                    ru.ruscalworld.bortexel4j.core.Response<T> bResponse = getResponseHandler().handle(type, response);
-                    if (bResponse != null) callback.handle(bResponse.getResponse());
+                    try {
+                        ru.ruscalworld.bortexel4j.core.Response<T> bResponse = getResponseHandler().handle(type, response);
+                        if (bResponse != null) success.handle(bResponse.getResponse());
+                    } catch (Exception e) {
+                        error.handle(e);
+                    }
                 } else if (response.body() != null) response.body().close();
             }
         });
