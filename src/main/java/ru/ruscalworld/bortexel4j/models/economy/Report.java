@@ -42,6 +42,10 @@ public class Report {
         this.createdAt = createdAt;
     }
 
+    public static Action<Report> getByID(int id) {
+        return getByID(id, new Bortexel4J());
+    }
+
     public static Action<Report> getByID(int id, Bortexel4J client) {
         Action<Report> action = new Action<>("/economy/reports/" + id, client);
         action.setResponseType(Report.class);

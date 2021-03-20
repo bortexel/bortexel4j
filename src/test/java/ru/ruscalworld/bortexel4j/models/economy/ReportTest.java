@@ -8,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReportTest {
     @Test
     void getByID() {
-        Report report = Report.getByID(1, Bortexel4J.anonymous()).execute();
+        Report report = Report.getByID(1).execute();
+        assertNotNull(report);
         assertEquals(1, report.getID());
     }
 }
