@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
+import ru.ruscalworld.bortexel4j.models.economy.Report;
 import ru.ruscalworld.bortexel4j.models.taxes.Taxes;
 import ru.ruscalworld.bortexel4j.util.Location;
 
@@ -59,6 +60,16 @@ public class Shop {
     public static Action<List<Shop>> getAll(Bortexel4J client) {
         Action<List<Shop>> action = new Action<>("/shops", client);
         action.setResponseType(TypeToken.getParameterized(List.class, Shop.class).getType());
+        return action;
+    }
+
+    public Action<ShopReports> getReports(boolean actualOnly) {
+        return getReports(actualOnly, new Bortexel4J());
+    }
+
+    public Action<ShopReports> getReports(boolean actualOnly, Bortexel4J client) {
+        Action<ShopReports> action = new Action<>("/shops/" + id + "/reports" + (actualOnly ? "?actual=1" : ""), client);
+        action.setResponseType(ShopReports.class);
         return action;
     }
 
@@ -147,6 +158,24 @@ public class Shop {
 
         public int getLocation() {
             return location;
+        }
+    }
+
+    public static class ShopReports {
+        private final Shop shop;
+        private final List<Report> reports;
+
+        public ShopReports(Shop shop, List<Report> reports) {
+            this.shop = shop;
+            this.reports = reports;
+        }
+
+        public Shop getShop() {
+            return shop;
+        }
+
+        public List<Report> getReports() {
+            return reports;
         }
     }
 }

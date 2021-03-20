@@ -12,6 +12,10 @@ class ShopTest {
         Shop shop = Shop.getByID(1).execute();
         assertNotNull(shop);
         assertEquals(1, shop.getID());
+
+        Shop.ShopReports reports = shop.getReports(true).execute();
+        assertNotNull(reports);
+        assertTrue(reports.getReports().size() > 0);
     }
 
     @Test
