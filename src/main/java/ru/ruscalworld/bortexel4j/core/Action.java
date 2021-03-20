@@ -16,6 +16,7 @@ public class Action<T> {
     private Type type;
     private HTTPMethod method;
     private Object body;
+    private int executorID;
     private final boolean handleResult;
     private ResponseHandler<T> responseHandler = new APIResponseHandler<>();
 
@@ -90,6 +91,7 @@ public class Action<T> {
             builder.header("Content-Type", "application/json");
         }
 
+        if (this.getExecutorID() != 0) builder.header("X-Proxied-Account-ID", "" + this.getExecutorID());
         return builder.build();
     }
 
@@ -127,5 +129,13 @@ public class Action<T> {
 
     public void setResponseHandler(ResponseHandler<T> responseHandler) {
         this.responseHandler = responseHandler;
+    }
+
+    public int getExecutorID() {
+        return executorID;
+    }
+
+    public void setExecutorID(int executorID) {
+        this.executorID = executorID;
     }
 }
