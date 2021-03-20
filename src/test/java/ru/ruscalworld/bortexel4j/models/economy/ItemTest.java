@@ -23,4 +23,11 @@ class ItemTest {
         assertNotNull(prices);
         assertNotEquals(0, prices.getPrices().size());
     }
+
+    @Test
+    void getAll() {
+        List<Item.Category> items = Item.getAll().execute();
+        assertNotNull(items);
+        assertTrue(items.size() > 0);
+    }
 }

@@ -1,5 +1,6 @@
 package ru.ruscalworld.bortexel4j.models.economy;
 
+import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
 import ru.ruscalworld.bortexel4j.util.BortexelCDN;
@@ -25,6 +26,16 @@ public class Item {
     public static Action<Item> getByID(String id, Bortexel4J client) {
         Action<Item> action = new Action<>("/economy/items/" + id, client);
         action.setResponseType(Item.class);
+        return action;
+    }
+
+    public static Action<List<Category>> getAll() {
+        return getAll(new Bortexel4J());
+    }
+
+    public static Action<List<Category>> getAll(Bortexel4J client) {
+        Action<List<Category>> action = new Action<>("/economy/items", client);
+        action.setResponseType(TypeToken.getParameterized(List.class, Category.class).getType());
         return action;
     }
 
@@ -71,6 +82,24 @@ public class Item {
 
         public float getPrice() {
             return price;
+        }
+    }
+
+    public static class Category {
+        private final String name;
+        private final List<Item> items;
+
+        public Category(String name, List<Item> items) {
+            this.name = name;
+            this.items = items;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public List<Item> getItems() {
+            return items;
         }
     }
 
