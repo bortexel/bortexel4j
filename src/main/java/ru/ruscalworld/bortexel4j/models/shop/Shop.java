@@ -27,9 +27,10 @@ public class Shop {
     @SerializedName("city_id")
     private final int cityID;
 
+    private final boolean verified;
     private final boolean active;
 
-    public Shop(int id, String name, String description, String items, int ownerID, Position position, Location locaiton, Taxes tax, Images images, int cityID, boolean active) {
+    public Shop(int id, String name, String description, String items, int ownerID, Position position, Location locaiton, Taxes tax, Images images, int cityID, boolean verified, boolean active) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -40,6 +41,7 @@ public class Shop {
         this.tax = tax;
         this.images = images;
         this.cityID = cityID;
+        this.verified = verified;
         this.active = active;
     }
 
@@ -127,6 +129,10 @@ public class Shop {
 
     public boolean isActive() {
         return active;
+    }
+
+    public boolean isVerified() {
+        return verified;
     }
 
     public static class Images {
