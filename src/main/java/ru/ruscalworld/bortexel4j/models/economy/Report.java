@@ -52,12 +52,22 @@ public class Report {
         return action;
     }
 
+    public static Action<String> deleteByID(int id, Bortexel4J client) {
+        Action<String> action = new Action<>("/economy/reports/" + id, client);
+        action.setMethod(HTTPMethod.DELETE);
+        return action;
+    }
+
     public Action<Report> create(Bortexel4J client) {
         Action<Report> action = new Action<>("/economy/reports/new", client);
         action.setResponseType(Report.class);
         action.setMethod(HTTPMethod.POST);
         action.setBody(this);
         return action;
+    }
+
+    public Action<String> delete(Bortexel4J client) {
+        return deleteByID(this.getID(), client);
     }
 
     public Timestamp getCreatedAt() {
