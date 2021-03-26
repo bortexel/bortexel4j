@@ -22,7 +22,6 @@ class ActionTest {
     private AuthCheck authorization;
     private Exception authException;
 
-    @Test
     void executeAsync() throws InterruptedException {
         AuthCheck.checkToken(token).executeAsync(response -> authorization = response, error -> authException = error);
         Thread.sleep(1000);
@@ -35,7 +34,6 @@ class ActionTest {
     private User user;
     private Exception userException;
 
-    @Test
     void executeAsyncError() throws InterruptedException {
         User.getByUsername("a!", Bortexel4J.anonymous()).executeAsync(response -> user = response, error -> userException = error);;
         Thread.sleep(1000);
