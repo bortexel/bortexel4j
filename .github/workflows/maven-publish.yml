@@ -10,6 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      BORTEXEL_TOKEN: ${{ secrets.BORTEXEL_TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
@@ -23,4 +25,3 @@ jobs:
       run: mvn deploy
       env:
         GITHUB_TOKEN: ${{ github.token }}
-        BORTEXEL_TOKEN: ${{ secrets.BORTEXEL_TOKEN }}
