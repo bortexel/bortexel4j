@@ -17,10 +17,10 @@ public class Ban {
 
     @SerializedName(value = "banned_by")
     private final String bannedBy;
-    private final int admin;
 
-    private final Timestamp time;
-    private Timestamp expire;
+    @SerializedName("admin_id")
+    private final int adminID;
+
     private String ip;
 
     @SerializedName(value = "by_name")
@@ -31,15 +31,21 @@ public class Ban {
 
     private boolean paused;
 
+    @SerializedName("created_at")
+    private final Timestamp createdAt;
+
+    @SerializedName("expires_at")
+    private Timestamp expiresAt;
+
     public Ban(int id, String username, int user, String reason, String bannedBy, int admin, Timestamp time, Timestamp expire, String ip, boolean byName, boolean byIP, boolean paused) {
         this.id = id;
         this.username = username;
         this.user = user;
         this.reason = reason;
         this.bannedBy = bannedBy;
-        this.admin = admin;
-        this.time = time;
-        this.expire = expire;
+        this.adminID = admin;
+        this.createdAt = time;
+        this.expiresAt = expire;
         this.ip = ip;
         this.byName = byName;
         this.byIP = byIP;
@@ -88,16 +94,16 @@ public class Ban {
         return bannedBy;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public Timestamp getExpireTime() {
-        return expire;
+    public Timestamp getExpiresAt() {
+        return expiresAt;
     }
 
     public void setExpireTime(Timestamp expire) {
-        this.expire = expire;
+        this.expiresAt = expire;
     }
 
     public String getIP() {
@@ -133,7 +139,7 @@ public class Ban {
     }
 
     public int getAdminID() {
-        return admin;
+        return adminID;
     }
 
     public int getUserID() {
@@ -141,10 +147,10 @@ public class Ban {
     }
 
     public boolean isPermanent() {
-        return this.getExpireTime().after(new Timestamp(1893456000000L));
+        return this.getExpiresAt() == null || this.getExpiresAt().after(new Timestamp(1893456000000L));
     }
 
     public boolean isActual() {
-        return this.getExpireTime().after(new Timestamp(System.currentTimeMillis())) && !this.isPaused();
+        return (this.getExpiresAt() == null || this.getExpiresAt().after(new Timestamp(System.currentTimeMillis()))) && !this.isPaused();
     }
 }
