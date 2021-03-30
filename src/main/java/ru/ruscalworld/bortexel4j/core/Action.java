@@ -1,6 +1,7 @@
 package ru.ruscalworld.bortexel4j.core;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import okhttp3.*;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
@@ -9,6 +10,7 @@ import ru.ruscalworld.bortexel4j.Client;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
 
 public class Action<T> {
     private final String endpoint;
@@ -112,7 +114,8 @@ public class Action<T> {
     }
 
     public String getBody() {
-        return new Gson().toJson(this.body);
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").create();
+        return gson.toJson(this.body);
     }
 
     public void setBody(Object body) {
