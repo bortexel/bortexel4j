@@ -3,8 +3,10 @@ package ru.ruscalworld.bortexel4j;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import org.jetbrains.annotations.Nullable;
 import ru.ruscalworld.bortexel4j.core.Action;
 import ru.ruscalworld.bortexel4j.exceptions.LoginException;
+import ru.ruscalworld.bortexel4j.listening.BroadcastingServer;
 import ru.ruscalworld.bortexel4j.models.authorization.AuthCheck;
 import ru.ruscalworld.bortexel4j.models.user.User;
 
@@ -81,6 +83,17 @@ public class Bortexel4J implements Client {
 
     public static Call createCall(Request request) {
         return getDefaultHttpClient().newCall(request);
+    }
+
+    public BroadcastingServer getBroadcastingServer() {
+        return this.getBroadcastingServer(null);
+    }
+
+    public BroadcastingServer getBroadcastingServer(@Nullable String url) {
+        BroadcastingServer server = new BroadcastingServer();
+        server.setToken(this.getToken());
+        if (url != null) server.setURL(url);
+        return server;
     }
 
     public Action<User> getUserByID(int id) {
