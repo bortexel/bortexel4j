@@ -7,6 +7,7 @@ import ru.ruscalworld.bortexel4j.exceptions.WebSocketException;
 import ru.ruscalworld.bortexel4j.listening.events.Event;
 import ru.ruscalworld.bortexel4j.listening.events.EventListener;
 import ru.ruscalworld.bortexel4j.listening.events.ban.GenericBanEvent;
+import ru.ruscalworld.bortexel4j.listening.events.warning.GenericWarningEvent;
 import ru.ruscalworld.bortexel4j.models.ban.Ban;
 
 import java.sql.Timestamp;
@@ -45,6 +46,12 @@ public class IncomingMessageHandler {
                     listener.onBanUpdated(new GenericBanEvent(event));
                 case Event.BAN_DELETED_EVENT:
                     listener.onBanDeleted(new GenericBanEvent(event));
+                case Event.WARNING_CREATED_EVENT:
+                    listener.onWarningCreated(new GenericWarningEvent(event));
+                case Event.WARNING_UPDATED_EVENT:
+                    listener.onWarningUpdated(new GenericWarningEvent(event));
+                case Event.WARNING_DELETED_EVENT:
+                    listener.onWarningDeleted(new GenericWarningEvent(event));
             }
         }
     }
