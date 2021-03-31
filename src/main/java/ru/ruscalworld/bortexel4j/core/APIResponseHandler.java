@@ -9,7 +9,6 @@ import ru.ruscalworld.bortexel4j.util.APIUtil;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.Objects;
 
 public class APIResponseHandler<T> implements ResponseHandler<T> {
     public Response<T> handle(Type type, okhttp3.Response apiResponse) throws RuntimeException, IOException {

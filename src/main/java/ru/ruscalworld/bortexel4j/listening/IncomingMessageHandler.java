@@ -8,7 +8,6 @@ import ru.ruscalworld.bortexel4j.listening.events.Event;
 import ru.ruscalworld.bortexel4j.listening.events.EventListener;
 import ru.ruscalworld.bortexel4j.listening.events.ban.GenericBanEvent;
 import ru.ruscalworld.bortexel4j.listening.events.warning.GenericWarningEvent;
-import ru.ruscalworld.bortexel4j.models.ban.Ban;
 
 import java.sql.Timestamp;
 

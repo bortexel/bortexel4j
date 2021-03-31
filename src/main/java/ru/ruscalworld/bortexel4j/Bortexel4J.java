@@ -10,8 +10,6 @@ import ru.ruscalworld.bortexel4j.listening.BroadcastingServer;
 import ru.ruscalworld.bortexel4j.models.authorization.AuthCheck;
 import ru.ruscalworld.bortexel4j.models.user.User;
 
-import java.util.concurrent.TimeUnit;
-
 public class Bortexel4J implements Client {
     public static final String DEFAULT_API_URL = "https://api.bortexel.ru/v3";
 

@@ -2,15 +2,14 @@ package ru.ruscalworld.bortexel4j.core;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import okhttp3.*;
 import okhttp3.Response;
+import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.Client;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.text.DateFormat;
 
 public class Action<T> {
     private final String endpoint;
