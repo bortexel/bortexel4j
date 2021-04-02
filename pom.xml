@@ -84,7 +84,7 @@
 
     <distributionManagement>
         <repository>
-            <id>github-packages</id>
+            <id>bortexel-github</id>
             <url>https://maven.pkg.github.com/bortexel/bortexel4j</url>
         </repository>
     </distributionManagement>
