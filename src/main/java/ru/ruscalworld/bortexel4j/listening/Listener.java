@@ -30,13 +30,15 @@ public class Listener extends WebSocketListener {
     @Override
     public void onClosed(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
         if (code != 1000 && code != 1001) {
-            System.out.println("WebSocket was closed with error code " + code + " (" + reason + "), reconnecting...");
+            System.out.println("WebSocket was closed with code " + code + " (" + reason + "), reconnecting...");
             server.connect();
         }
     }
 
     @Override
     public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable throwable, Response response) {
-        throwable.printStackTrace();
+        System.out.println("Reconnecting due to an exception in WebSocket connection: " + throwable.getMessage());
+        webSocket.close(1001, null);
+        server.connect();
     }
 }
