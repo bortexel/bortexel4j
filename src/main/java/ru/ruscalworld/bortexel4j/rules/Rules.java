@@ -1,6 +1,7 @@
 package ru.ruscalworld.bortexel4j.rules;
 
 import com.google.gson.annotations.SerializedName;
+import org.jetbrains.annotations.Nullable;
 import ru.ruscalworld.bortexel4j.RuleClient;
 import ru.ruscalworld.bortexel4j.core.Action;
 
@@ -30,6 +31,16 @@ public class Rules {
         action.setResponseHandler(new RuleResponseHandler<>());
         action.setResponseType(Rules.class);
         return action;
+    }
+
+    @Nullable public RulePart.Rule findRule(String name) {
+        if (this.getParts() == null || this.getParts().size() == 0) return null;
+        for (RulePart part : this.getParts()) {
+            RulePart.Rule rule = part.findRule(name);
+            if (rule != null) return rule;
+        }
+
+        return null;
     }
 
     public String getName() {

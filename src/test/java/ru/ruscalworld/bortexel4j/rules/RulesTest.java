@@ -10,5 +10,13 @@ class RulesTest {
     void getByName() {
         Rules rules = Rules.getByName("main").execute();
         assertEquals(rules.getName(), "Общие правила");
+
+        RulePart.Rule rule = rules.findRule("1.1");
+        assertNotNull(rule);
+        assertEquals("1.1", rule.getName());
+
+        rule = rules.findRule("1.1.1");
+        assertNotNull(rule);
+        assertEquals("1.1.1", rule.getName());
     }
 }

@@ -1,5 +1,7 @@
 package ru.ruscalworld.bortexel4j.rules;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,15 @@ public class RulePart {
         this.number = number;
         this.description = description;
         this.rules = rules;
+    }
+
+    @Nullable public Rule findRule(String name) {
+        for (Rule rule : this.getRules()) {
+            Rule subrule = rule.findRule(name);
+            if (subrule != null) return subrule;
+        }
+
+        return null;
     }
 
     public String getName() {
@@ -41,6 +52,16 @@ public class RulePart {
             this.name = name;
             this.text = text;
             this.rules = rules;
+        }
+
+        @Nullable public Rule findRule(String name) {
+            if (this.getName().equalsIgnoreCase(name)) return this;
+            if (this.getRules() != null && this.getRules().size() > 0) for (Rule rule : this.getRules()) {
+                Rule subrule = rule.findRule(name);
+                if (subrule != null) return subrule;
+            }
+
+            return null;
         }
 
         public String getName() {
