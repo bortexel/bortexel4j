@@ -41,16 +41,22 @@ public class IncomingMessageHandler {
             switch (event.getEventID()) {
                 case Event.BAN_CREATED_EVENT:
                     listener.onBanCreated(new GenericBanEvent(event));
+                    break;
                 case Event.BAN_UPDATED_EVENT:
                     listener.onBanUpdated(new GenericBanEvent(event));
+                    break;
                 case Event.BAN_DELETED_EVENT:
                     listener.onBanDeleted(new GenericBanEvent(event));
+                    break;
                 case Event.WARNING_CREATED_EVENT:
                     listener.onWarningCreated(new GenericWarningEvent(event));
+                    break;
                 case Event.WARNING_UPDATED_EVENT:
                     listener.onWarningUpdated(new GenericWarningEvent(event));
+                    break;
                 case Event.WARNING_DELETED_EVENT:
                     listener.onWarningDeleted(new GenericWarningEvent(event));
+                    break;
             }
         }
     }
