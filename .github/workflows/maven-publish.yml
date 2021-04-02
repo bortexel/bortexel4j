@@ -18,9 +18,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-        server-id: github-packages
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+        server-id: bortexel-github
     - name: Publish to GitHub Packages Apache Maven
       run: mvn deploy
       env:
