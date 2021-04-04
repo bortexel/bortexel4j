@@ -2,6 +2,7 @@ package ru.ruscalworld.bortexel4j.listening;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.WebSocket;
 import ru.ruscalworld.bortexel4j.listening.events.EventListener;
 
 import java.sql.Timestamp;
@@ -12,6 +13,7 @@ public class BroadcastingServer {
     private String url;
     private String token;
     private Timestamp lastMessageReceived;
+    private WebSocket webSocket;
     private OkHttpClient client = new OkHttpClient();
     private final List<EventListener> listeners = new ArrayList<>();
     private final IncomingMessageHandler incomingMessageHandler;
@@ -23,7 +25,13 @@ public class BroadcastingServer {
 
     public void connect() {
         Request request = new Request.Builder().url(this.getURL()).build();
-        this.getClient().newWebSocket(request, new Listener(this));
+        this.setWebSocket(this.getClient().newWebSocket(request, new Listener(this)));
+    }
+
+    public boolean disconnect() {
+        boolean closed = this.getWebSocket().close(1001, null);
+        if (closed) this.setWebSocket(null);
+        return closed;
     }
 
     public void registerListener(EventListener listener) {
@@ -68,5 +76,13 @@ public class BroadcastingServer {
 
     public void setLastMessageReceived(Timestamp lastMessageReceived) {
         this.lastMessageReceived = lastMessageReceived;
+    }
+
+    public WebSocket getWebSocket() {
+        return webSocket;
+    }
+
+    public void setWebSocket(WebSocket webSocket) {
+        this.webSocket = webSocket;
     }
 }
