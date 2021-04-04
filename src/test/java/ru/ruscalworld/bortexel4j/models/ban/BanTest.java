@@ -36,7 +36,7 @@ class BanTest {
         assertEquals(1, ban.getID());
         assertFalse(ban.isActual());
         assertFalse(ban.isPermanent());
-        assertFalse(ban.isPaused());
+        assertFalse(ban.isSuspended());
     }
 
     @Test

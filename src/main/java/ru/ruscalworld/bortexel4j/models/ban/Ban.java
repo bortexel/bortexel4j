@@ -32,7 +32,7 @@ public class Ban {
     @SerializedName(value = "by_ip")
     private boolean byIP;
 
-    private boolean paused;
+    private boolean suspended;
 
     @SerializedName("created_at")
     private final Timestamp createdAt;
@@ -52,7 +52,7 @@ public class Ban {
         this.ip = ip;
         this.byName = byName;
         this.byIP = byIP;
-        this.paused = paused;
+        this.suspended = paused;
     }
 
     public static Action<Ban> getByID(int id, Bortexel4J client) {
@@ -142,12 +142,12 @@ public class Ban {
         this.byIP = byIP;
     }
 
-    public boolean isPaused() {
-        return paused;
+    public boolean isSuspended() {
+        return suspended;
     }
 
-    public void setPaused(boolean paused) {
-        this.paused = paused;
+    public void setSuspended(boolean suspended) {
+        this.suspended = suspended;
     }
 
     public int getAdminID() {
@@ -159,7 +159,7 @@ public class Ban {
     }
 
     public boolean isActual() {
-        return (this.getExpiresAt() == null || this.getExpiresAt().after(new Timestamp(System.currentTimeMillis()))) && !this.isPaused();
+        return (this.getExpiresAt() == null || this.getExpiresAt().after(new Timestamp(System.currentTimeMillis()))) && !this.isSuspended();
     }
 
     public int getAccountID() {
