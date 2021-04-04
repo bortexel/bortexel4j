@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
+import ru.ruscalworld.bortexel4j.models.ban.Ban;
+import ru.ruscalworld.bortexel4j.models.warning.Warning;
 
 import java.util.List;
 
@@ -58,6 +60,54 @@ public class Account {
         Action<List<Account>> action = new Action<>("/accounts", client);
         action.setResponseType(TypeToken.getParameterized(List.class, Account.class).getType());
         return action;
+    }
+
+    public Action<AccountWarnings> getWarnings(Bortexel4J client) {
+        Action<AccountWarnings> action = new Action<>("/accounts/" + this.getID() + "/warnings", client);
+        action.setResponseType(AccountWarnings.class);
+        return action;
+    }
+
+    public Action<AccountBans> getBans(Bortexel4J client) {
+        Action<AccountBans> action = new Action<>("/accounts/" + this.getID() + "/bans", client);
+        action.setResponseType(AccountBans.class);
+        return action;
+    }
+
+    public static class AccountWarnings {
+        private final Account account;
+        private final List<Warning> warnings;
+
+        public AccountWarnings(Account account, List<Warning> warnings) {
+            this.account = account;
+            this.warnings = warnings;
+        }
+
+        public Account getAccount() {
+            return account;
+        }
+
+        public List<Warning> getWarnings() {
+            return warnings;
+        }
+    }
+
+    public static class AccountBans {
+        private final Account account;
+        private final List<Ban> bans;
+
+        public AccountBans(Account account, List<Ban> bans) {
+            this.account = account;
+            this.bans = bans;
+        }
+
+        public Account getAccount() {
+            return account;
+        }
+
+        public List<Ban> getBans() {
+            return bans;
+        }
     }
 
     public int getID() {
