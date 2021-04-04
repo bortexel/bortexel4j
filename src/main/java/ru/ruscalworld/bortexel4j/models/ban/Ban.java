@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
 import ru.ruscalworld.bortexel4j.core.HTTPMethod;
-import ru.ruscalworld.bortexel4j.models.warning.Warning;
 
 import java.net.InetAddress;
 import java.sql.Timestamp;
@@ -19,8 +18,8 @@ public class Ban {
     @SerializedName("account_id")
     private final int accountID;
 
-    @SerializedName(value = "banned_by")
-    private final String bannedBy;
+    @SerializedName("admin_name")
+    private final String adminName;
 
     @SerializedName("admin_id")
     private final int adminID;
@@ -46,7 +45,7 @@ public class Ban {
         this.username = username;
         this.reason = reason;
         this.accountID = accountID;
-        this.bannedBy = bannedBy;
+        this.adminName = bannedBy;
         this.adminID = admin;
         this.createdAt = time;
         this.expiresAt = expire;
@@ -103,8 +102,8 @@ public class Ban {
         this.reason = reason;
     }
 
-    public String getBannedBy() {
-        return bannedBy;
+    public String getAdminName() {
+        return adminName;
     }
 
     public Timestamp getCreatedAt() {
