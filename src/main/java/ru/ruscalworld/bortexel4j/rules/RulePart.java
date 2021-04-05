@@ -47,11 +47,13 @@ public class RulePart {
         private final String name;
         private final String text;
         private final List<Rule> rules;
+        private final List<String> punishments;
 
-        public Rule(String name, String text, List<Rule> rules) {
+        public Rule(String name, String text, List<Rule> rules, List<String> punishments) {
             this.name = name;
             this.text = text;
             this.rules = rules;
+            this.punishments = punishments;
         }
 
         @Nullable public Rule findRule(String name) {
@@ -74,6 +76,10 @@ public class RulePart {
 
         public List<Rule> getRules() {
             return rules;
+        }
+
+        public List<String> getPunishments() {
+            return punishments;
         }
 
         public String render(int level) {

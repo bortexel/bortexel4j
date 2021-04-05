@@ -13,10 +13,17 @@ class RulesTest {
 
         RulePart.Rule rule = rules.findRule("1.1");
         assertNotNull(rule);
+        assertNull(rule.getPunishments());
         assertEquals("1.1", rule.getName());
 
         rule = rules.findRule("1.1.1");
         assertNotNull(rule);
+        assertNull(rule.getPunishments());
         assertEquals("1.1.1", rule.getName());
+
+        rule = rules.findRule("2.1");
+        assertNotNull(rule);
+        assertTrue(rule.getPunishments().size() > 0);
+        assertEquals("2.1", rule.getName());
     }
 }
