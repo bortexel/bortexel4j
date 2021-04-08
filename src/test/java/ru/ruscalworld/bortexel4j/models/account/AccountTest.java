@@ -18,6 +18,14 @@ class AccountTest {
     }
 
     @Test
+    void getByDiscordID() {
+        Account account = Account.getByDiscordID("496297262952218638", client).execute();
+        assertNotNull(account);
+        assertEquals(1, account.getID());
+        assertEquals("496297262952218638", account.getDiscordID());
+    }
+
+    @Test
     void getAll() {
         List<Account> accounts = Account.getAll(client).execute();
         assertNotNull(accounts);

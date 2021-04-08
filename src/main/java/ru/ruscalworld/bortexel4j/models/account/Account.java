@@ -56,6 +56,12 @@ public class Account {
         return action;
     }
 
+    public static Action<Account> getByDiscordID(String id, Bortexel4J client) {
+        Action<Account> action = new Action<>("/external/discord/" + id, client);
+        action.setResponseType(Account.class);
+        return action;
+    }
+
     public static Action<List<Account>> getAll(Bortexel4J client) {
         Action<List<Account>> action = new Action<>("/accounts", client);
         action.setResponseType(TypeToken.getParameterized(List.class, Account.class).getType());
