@@ -37,8 +37,15 @@ public class Listener extends WebSocketListener {
 
     @Override
     public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable throwable, Response response) {
-        System.err.println("[BCS] Reconnecting due to an exception in WebSocket connection: " + throwable.getMessage());
+        System.err.println("[BCS] Reconnecting in 5s due to an exception in WebSocket connection: " + throwable.getMessage());
         webSocket.close(1001, null);
-        server.connect();
+
+        try {
+            Thread.sleep(5000L);
+            server.connect();
+        } catch (InterruptedException e) {
+            System.err.println("[BCS] Unable to reconnect");
+            e.printStackTrace();
+        }
     }
 }
