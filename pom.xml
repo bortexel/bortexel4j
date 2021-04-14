@@ -6,7 +6,7 @@
 
     <groupId>ru.bortexel</groupId>
     <artifactId>bortexel4j</artifactId>
-    <version>1.2.10-A</version>
+    <version>1.2.10-B</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -75,6 +75,14 @@
                                 <relocation>
                                     <pattern>com.google.code.gson</pattern>
                                     <shadedPattern>ru.bortexel.bortexel4j.dependencies.gson</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>okhttp3</pattern>
+                                    <shadedPattern>ru.bortexel.bortexel4j.dependencies.okhttp</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>okio</pattern>
+                                    <shadedPattern>ru.bortexel.bortexel4j.dependencies.okio</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
