@@ -2,6 +2,7 @@ package ru.ruscalworld.bortexel4j.models.ban;
 
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
+import org.jetbrains.annotations.Nullable;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
 import ru.ruscalworld.bortexel4j.core.HTTPMethod;
@@ -18,6 +19,7 @@ public class Ban {
     @SerializedName("account_id")
     private final int accountID;
 
+    @Nullable
     @SerializedName("admin_name")
     private final String adminName;
 
@@ -40,7 +42,7 @@ public class Ban {
     @SerializedName("expires_at")
     private Timestamp expiresAt;
 
-    public Ban(int id, String username, String reason, int accountID, String bannedBy, int admin, Timestamp time, Timestamp expire, String ip, boolean byName, boolean byIP, boolean paused) {
+    public Ban(int id, String username, String reason, int accountID, @Nullable String bannedBy, int admin, Timestamp time, Timestamp expire, String ip, boolean byName, boolean byIP, boolean paused) {
         this.id = id;
         this.username = username;
         this.reason = reason;
@@ -102,7 +104,7 @@ public class Ban {
         this.reason = reason;
     }
 
-    public String getAdminName() {
+    public @Nullable String getAdminName() {
         return adminName;
     }
 

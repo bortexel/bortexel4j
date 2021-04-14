@@ -2,6 +2,7 @@ package ru.ruscalworld.bortexel4j.models.warning;
 
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
+import org.jetbrains.annotations.Nullable;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
 import ru.ruscalworld.bortexel4j.core.HTTPMethod;
@@ -16,6 +17,7 @@ public class Warning {
     @SerializedName("account_id")
     private final int accountID;
 
+    @Nullable
     @SerializedName("admin_name")
     private final String admin;
 
@@ -28,7 +30,7 @@ public class Warning {
     @SerializedName("created_at")
     private final Timestamp createdAt;
 
-    public Warning(int id, String username, int accountID, String admin, int adminID, int power, String reason, Timestamp createdAt) {
+    public Warning(int id, String username, int accountID, @Nullable String admin, int adminID, int power, String reason, Timestamp createdAt) {
         this.id = id;
         this.username = username;
         this.accountID = accountID;
@@ -72,7 +74,12 @@ public class Warning {
         return accountID;
     }
 
-    public String getAdmin() {
+    public @Nullable String getAdminName() {
+        return admin;
+    }
+
+    @Deprecated
+    public @Nullable String getAdmin() {
         return admin;
     }
 
