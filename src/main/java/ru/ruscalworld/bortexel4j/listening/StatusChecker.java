@@ -18,6 +18,11 @@ public class StatusChecker extends Thread {
     @Override
     public void run() {
         while (this.getServer().getWebSocket() != null) {
+            try {
+                Thread.sleep(PING_INTERVAL);
+            } catch (InterruptedException ignored) { }
+
+            // Send ping request
             WebSocket webSocket = this.getServer().getWebSocket();
             new Message(Operations.PING, null).send(webSocket);
 
@@ -28,17 +33,13 @@ public class StatusChecker extends Thread {
             //  Check fail
 
             Timestamp deadline = new Timestamp(System.currentTimeMillis() - PING_INTERVAL * 2);
-            if (deadline.after(this.getServer().getLastMessageReceived())) {
+            if (this.getServer().getLastMessageReceived() == null || deadline.after(this.getServer().getLastMessageReceived())) {
                 long interval = System.currentTimeMillis() - this.getServer().getLastMessageReceived().getTime();
                 System.out.println("[BCS] Connection seems to be broken, reconnecting. Last message received " + interval + "ms ago.");
 
                 this.getServer().disconnect();
                 this.getServer().connect();
             }
-
-            try {
-                Thread.sleep(PING_INTERVAL);
-            } catch (InterruptedException ignored) { }
         }
     }
 
