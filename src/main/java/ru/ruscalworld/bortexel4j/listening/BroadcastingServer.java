@@ -15,7 +15,7 @@ public class BroadcastingServer {
     private Timestamp lastMessageReceived;
     private WebSocket webSocket;
     private OkHttpClient client = new OkHttpClient();
-    private StatusChecker statusChecker = new StatusChecker(this);
+    private StatusChecker statusChecker;
     private final List<EventListener> listeners = new ArrayList<>();
     private final IncomingMessageHandler incomingMessageHandler;
 
@@ -27,6 +27,8 @@ public class BroadcastingServer {
     public void connect() {
         Request request = new Request.Builder().url(this.getURL()).build();
         this.setWebSocket(this.getClient().newWebSocket(request, new Listener(this)));
+
+        this.setStatusChecker(new StatusChecker(this));
         this.getStatusChecker().start();
     }
 
@@ -35,6 +37,7 @@ public class BroadcastingServer {
         if (closed) {
             this.setWebSocket(null);
             this.getStatusChecker().interrupt();
+            this.setStatusChecker(null);
         }
         return closed;
     }
