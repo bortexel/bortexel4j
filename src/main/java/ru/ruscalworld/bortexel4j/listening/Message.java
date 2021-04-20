@@ -3,6 +3,7 @@ package ru.ruscalworld.bortexel4j.listening;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import okhttp3.WebSocket;
+import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.bortexel4j.listening.events.Event;
 import ru.ruscalworld.bortexel4j.models.ban.Ban;
 import ru.ruscalworld.bortexel4j.models.warning.Warning;
@@ -18,7 +19,7 @@ public class Message {
         this.payload = payload;
     }
 
-    public void send(WebSocket webSocket) {
+    public void send(@NotNull WebSocket webSocket) {
         Gson gson = new Gson();
         String json = gson.toJson(this);
         webSocket.send(json);
