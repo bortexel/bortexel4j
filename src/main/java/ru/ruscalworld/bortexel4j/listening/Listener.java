@@ -15,7 +15,7 @@ public class Listener extends WebSocketListener {
 
     @Override
     public void onOpen(@NotNull WebSocket webSocket, @NotNull Response response) {
-        System.out.println("[BCS] Connected to WebSocket at " + server.getURL());
+        server.getLogger().info("Connected to WebSocket at " + server.getURL());
         new Message(Operations.HELLO, new Message.Authorization(this.server.getToken())).send(webSocket);
     }
 
@@ -30,21 +30,21 @@ public class Listener extends WebSocketListener {
     @Override
     public void onClosed(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
         if (code != 1000 && code != 1001) {
-            System.out.println("[BCS] WebSocket was closed with code " + code + " (" + reason + "), reconnecting...");
+            server.getLogger().info("WebSocket was closed with code " + code + " (" + reason + "), reconnecting...");
             server.connect();
         }
     }
 
     @Override
     public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable throwable, Response response) {
-        System.err.println("[BCS] Reconnecting in 5s due to an exception in WebSocket connection: " + throwable.getMessage());
+        server.getLogger().warn("Reconnecting in 5s due to an exception in WebSocket connection: " + throwable.getMessage());
         webSocket.close(1001, null);
 
         try {
             Thread.sleep(5000L);
             server.connect();
         } catch (InterruptedException e) {
-            System.err.println("[BCS] Unable to reconnect");
+            server.getLogger().error("Unable to reconnect");
             e.printStackTrace();
         }
     }

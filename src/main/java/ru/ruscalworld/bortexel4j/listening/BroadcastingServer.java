@@ -3,6 +3,8 @@ package ru.ruscalworld.bortexel4j.listening;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.ruscalworld.bortexel4j.listening.events.EventListener;
 
 import java.sql.Timestamp;
@@ -22,6 +24,10 @@ public class BroadcastingServer {
     public BroadcastingServer() {
         this.url = "wss://bcs.bortexel.ru/v1/websocket";
         this.incomingMessageHandler = new IncomingMessageHandler(this);
+    }
+
+    public Logger getLogger() {
+        return LoggerFactory.getLogger(this.getClass());
     }
 
     public void connect() {
