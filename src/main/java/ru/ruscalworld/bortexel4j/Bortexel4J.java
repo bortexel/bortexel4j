@@ -16,6 +16,7 @@ public class Bortexel4J implements Client {
     private final String token;
     private final String owner;
     private final int level;
+    private OkHttpClient httpClient;
     private String apiUrl = DEFAULT_API_URL;
 
     private Bortexel4J(String token, String owner, int level, String apiUrl) {
@@ -79,8 +80,17 @@ public class Bortexel4J implements Client {
         return builder.build();
     }
 
-    public static Call createCall(Request request) {
-        return getDefaultHttpClient().newCall(request);
+    public OkHttpClient getHttpClient() {
+        if (this.httpClient == null) this.httpClient = getDefaultHttpClient();
+        return this.httpClient;
+    }
+
+    public void setHttpClient(OkHttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
+    public Call createCall(Request request) {
+        return this.getHttpClient().newCall(request);
     }
 
     public BroadcastingServer getBroadcastingServer() {

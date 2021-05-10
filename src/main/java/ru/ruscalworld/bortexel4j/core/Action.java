@@ -37,9 +37,9 @@ public class Action<T> {
 
     public T execute() {
         try {
-            Response response = Bortexel4J.createCall(this.makeRequest()).execute();
-            if (this.handleResult) {
-                ru.ruscalworld.bortexel4j.core.Response<T> bResponse = getResponseHandler().handle(this.type, response);
+            Response response = this.getClient().createCall(this.makeRequest()).execute();
+            if (this.shouldHandleResult()) {
+                ru.ruscalworld.bortexel4j.core.Response<T> bResponse = getResponseHandler().handle(this.getType(), response);
                 if (bResponse != null) return bResponse.getResponse();
             } else {
                 if (response.body() != null) response.body().close();
@@ -61,7 +61,7 @@ public class Action<T> {
     }
 
     public void executeAsync(Callback<T> success, Callback<Exception> error) {
-        Bortexel4J.createCall(this.makeRequest()).enqueue(new okhttp3.Callback() {
+        this.getClient().createCall(this.makeRequest()).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 error.handle(e);
@@ -69,9 +69,9 @@ public class Action<T> {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
-                if (handleResult) {
+                if (shouldHandleResult()) {
                     try {
-                        ru.ruscalworld.bortexel4j.core.Response<T> bResponse = getResponseHandler().handle(type, response);
+                        ru.ruscalworld.bortexel4j.core.Response<T> bResponse = getResponseHandler().handle(getType(), response);
                         if (bResponse != null) success.handle(bResponse.getResponse());
                     } catch (Exception e) {
                         error.handle(e);
@@ -82,18 +82,26 @@ public class Action<T> {
     }
 
     private Request makeRequest() {
-        Request.Builder builder = this.client.getDefaultRequestBuilder();
-        builder.url(this.client.getApiUrl() + endpoint);
+        Request.Builder builder = this.getClient().getDefaultRequestBuilder();
+        builder.url(this.getClient().getApiUrl() + this.getEndpoint());
 
-        if (this.method != HTTPMethod.GET) {
+        if (this.getMethod() != HTTPMethod.GET) {
             RequestBody body = RequestBody.create(MediaType.parse("application/json"), this.getBody());
             builder.post(body);
-            builder.method(this.method.toString(), body);
+            builder.method(this.getMethod().toString(), body);
             builder.header("Content-Type", "application/json");
         }
 
         if (this.getExecutorID() != 0) builder.header("X-Proxied-Account-ID", "" + this.getExecutorID());
         return builder.build();
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
     }
 
     public Type getType() {
@@ -121,7 +129,7 @@ public class Action<T> {
         this.body = body;
     }
 
-    public boolean isHandleResult() {
+    public boolean shouldHandleResult() {
         return handleResult;
     }
 
