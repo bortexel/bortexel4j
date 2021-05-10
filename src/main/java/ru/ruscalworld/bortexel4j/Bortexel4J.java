@@ -19,6 +19,14 @@ public class Bortexel4J implements Client {
     private OkHttpClient httpClient;
     private String apiUrl = DEFAULT_API_URL;
 
+    private Bortexel4J(String token, String owner, int level, String apiUrl, OkHttpClient httpClient) {
+        this.token = token;
+        this.owner = owner;
+        this.level = level;
+        this.apiUrl = apiUrl;
+        this.httpClient = httpClient;
+    }
+
     private Bortexel4J(String token, String owner, int level, String apiUrl) {
         this.token = token;
         this.owner = owner;
@@ -50,23 +58,27 @@ public class Bortexel4J implements Client {
     }
 
     public static Bortexel4J login(String token) throws LoginException {
-        return login(token, DEFAULT_API_URL, true);
+        return login(token, DEFAULT_API_URL, true, null);
     }
 
     public static Bortexel4J login(String token, String apiUrl) {
-        return login(token, apiUrl, true);
+        return login(token, apiUrl, true, null);
     }
 
-    public static Bortexel4J login(String token, String apiUrl, boolean checkAuth) throws LoginException {
+    public static Bortexel4J login(String token, String apiUrl, OkHttpClient httpClient) {
+        return login(token, apiUrl, true, httpClient);
+    }
+
+    public static Bortexel4J login(String token, String apiUrl, boolean checkAuth, OkHttpClient httpClient) throws LoginException {
         Bortexel4J client = new Bortexel4J(token, apiUrl);
         if (!checkAuth) return client;
         AuthCheck authorization = AuthCheck.checkToken(client).execute();
         if (!authorization.isAuthorized()) throw new LoginException();
-        return new Bortexel4J(token, authorization.getUsername(), authorization.getLevel(), apiUrl);
+        return new Bortexel4J(token, authorization.getUsername(), authorization.getLevel(), apiUrl, httpClient);
     }
 
     public static Bortexel4J login() {
-        return login(System.getenv("BORTEXEL_TOKEN"), DEFAULT_API_URL, false);
+        return login(System.getenv("BORTEXEL_TOKEN"), DEFAULT_API_URL, false, null);
     }
 
     public Request.Builder getDefaultRequestBuilder() {
