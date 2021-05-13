@@ -16,12 +16,13 @@ public class BroadcastingServer {
     private String token;
     private Timestamp lastMessageReceived;
     private WebSocket webSocket;
-    private OkHttpClient client = new OkHttpClient();
+    private OkHttpClient client;
     private StatusChecker statusChecker;
     private final List<EventListener> listeners = new ArrayList<>();
     private final IncomingMessageHandler incomingMessageHandler;
 
-    public BroadcastingServer() {
+    public BroadcastingServer(OkHttpClient client) {
+        this.client = client;
         this.url = "wss://bcs.bortexel.ru/v1/websocket";
         this.incomingMessageHandler = new IncomingMessageHandler(this);
     }

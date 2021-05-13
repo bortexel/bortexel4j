@@ -113,7 +113,7 @@ public class Bortexel4J implements Client {
     }
 
     public BroadcastingServer getBroadcastingServer(@Nullable String url) {
-        BroadcastingServer server = new BroadcastingServer();
+        BroadcastingServer server = new BroadcastingServer(this.getHttpClient());
         server.setToken(this.getToken());
         if (url != null) server.setURL(url);
         return server;
