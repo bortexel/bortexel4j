@@ -8,6 +8,14 @@ public class RuleClient implements Client {
     private String url = "https://cdn.bortexel.ru/rules";
     private OkHttpClient httpClient;
 
+    public RuleClient() {
+        this.httpClient = null;
+    }
+
+    public RuleClient(OkHttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
     public void setURL(String url) {
         this.url = url;
     }

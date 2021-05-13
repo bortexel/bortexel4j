@@ -119,6 +119,10 @@ public class Bortexel4J implements Client {
         return server;
     }
 
+    public RuleClient getRuleClient() {
+        return new RuleClient(this.getHttpClient());
+    }
+
     public Action<User> getUserByID(int id) {
         return User.getByID(id, this);
     }
