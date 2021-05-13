@@ -14,8 +14,8 @@ public class Bortexel4J implements Client {
     public static final String DEFAULT_API_URL = "https://api.bortexel.ru/v3";
 
     private final String token;
-    private final String owner;
-    private final int level;
+    private String owner;
+    private int level;
     private OkHttpClient httpClient;
     private String apiUrl = DEFAULT_API_URL;
 
@@ -75,7 +75,9 @@ public class Bortexel4J implements Client {
         if (!checkAuth) return client;
         AuthCheck authorization = AuthCheck.checkToken(client).execute();
         if (!authorization.isAuthorized()) throw new LoginException();
-        return new Bortexel4J(token, authorization.getUsername(), authorization.getLevel(), apiUrl, httpClient);
+        client.setLevel(authorization.getLevel());
+        client.setOwner(authorization.getUsername());
+        return client;
     }
 
     public static Bortexel4J login() {
@@ -139,5 +141,13 @@ public class Bortexel4J implements Client {
 
     public void setApiUrl(String apiUrl) {
         this.apiUrl = apiUrl;
+    }
+
+    private void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    private void setLevel(int level) {
+        this.level = level;
     }
 }
