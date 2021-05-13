@@ -24,6 +24,7 @@ public class StatusChecker extends Thread {
 
             // Send ping request
             WebSocket webSocket = this.getServer().getWebSocket();
+            if (webSocket == null) return;
             new Message(Operations.PING, null).send(webSocket);
 
             //     DEADLINE        NOW
@@ -35,7 +36,7 @@ public class StatusChecker extends Thread {
             Timestamp deadline = new Timestamp(System.currentTimeMillis() - PING_INTERVAL * 2);
             if (this.getServer().getLastMessageReceived() == null || deadline.after(this.getServer().getLastMessageReceived())) {
                 long interval = System.currentTimeMillis() - this.getServer().getLastMessageReceived().getTime();
-                System.out.println("[BCS] Connection seems to be broken, reconnecting. Last message received " + interval + "ms ago.");
+                server.getLogger().warn("Connection seems to be broken, reconnecting. Last message received " + interval + "ms ago.");
 
                 this.getServer().disconnect();
                 this.getServer().connect();
