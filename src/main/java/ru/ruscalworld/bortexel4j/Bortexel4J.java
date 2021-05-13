@@ -34,11 +34,12 @@ public class Bortexel4J implements Client {
         this.apiUrl = apiUrl;
     }
 
-    public Bortexel4J(String token, String apiUrl) {
+    public Bortexel4J(String token, String apiUrl, OkHttpClient httpClient) {
         this.token = token;
         this.owner = null;
         this.level = 0;
         this.apiUrl = apiUrl;
+        this.httpClient = httpClient;
     }
 
     public Bortexel4J(String token) {
@@ -70,7 +71,7 @@ public class Bortexel4J implements Client {
     }
 
     public static Bortexel4J login(String token, String apiUrl, boolean checkAuth, OkHttpClient httpClient) throws LoginException {
-        Bortexel4J client = new Bortexel4J(token, apiUrl);
+        Bortexel4J client = new Bortexel4J(token, apiUrl, httpClient);
         if (!checkAuth) return client;
         AuthCheck authorization = AuthCheck.checkToken(client).execute();
         if (!authorization.isAuthorized()) throw new LoginException();
