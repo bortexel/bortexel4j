@@ -84,8 +84,8 @@
 
     <distributionManagement>
         <repository>
-            <id>bortexel-github</id>
-            <url>https://maven.pkg.github.com/bortexel/bortexel4j</url>
+            <id>ruscalworld-releases</id>
+            <url>https://maven.ruscalworld.ru/releases</url>
         </repository>
     </distributionManagement>
 
