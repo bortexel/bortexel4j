@@ -18,8 +18,8 @@ class WarningTest {
 
     @Test
     void getByID() {
-        Warning warning = Warning.getByID(1, Bortexel4J.login()).execute();
+        Warning warning = Warning.getByID(2, Bortexel4J.login()).execute();
         assertNotNull(warning);
-        assertEquals(1, warning.getID());
+        assertEquals(2, warning.getID());
     }
 }
