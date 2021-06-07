@@ -9,6 +9,8 @@ class ProfileTest {
     void getByUserName() {
         Profile profile = Profile.getByUserName("RuscalWorld").execute();
         assertNotNull(profile);
+        assertNotNull(profile.getBans());
+        assertNotNull(profile.getWarnings());
         assertEquals("RuscalWorld", profile.getUsername());
     }
 }
