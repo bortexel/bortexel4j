@@ -70,7 +70,8 @@ public class Shop {
     }
 
     public Action<ShopReports> getReports(boolean actualOnly, Bortexel4J client) {
-        Action<ShopReports> action = new Action<>("/shops/" + id + "/reports" + (actualOnly ? "?actual=1" : ""), client);
+        Action<ShopReports> action = new Action<>("/shops/" + this.getID() + "/reports", client);
+        if (actualOnly) action.addQueryParam("actual", "1");
         action.setResponseType(ShopReports.class);
         return action;
     }

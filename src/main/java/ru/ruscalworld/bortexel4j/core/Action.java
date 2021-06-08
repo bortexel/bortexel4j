@@ -10,6 +10,9 @@ import ru.ruscalworld.bortexel4j.Client;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Action<T> {
     private final String endpoint;
@@ -19,6 +22,7 @@ public class Action<T> {
     private Object body;
     private int executorID;
     private final boolean handleResult;
+    private final HashMap<String, String> queryParams = new HashMap<>();
     private ResponseHandler<T> responseHandler = new APIResponseHandler<>();
 
     public Action(String endpoint, boolean handleResult, Client client) {
@@ -83,7 +87,7 @@ public class Action<T> {
 
     private Request makeRequest() {
         Request.Builder builder = this.getClient().getDefaultRequestBuilder();
-        builder.url(this.getClient().getApiUrl() + this.getEndpoint());
+        builder.url(this.getClient().getApiUrl() + this.getEndpoint() + this.buildQueryParams());
 
         if (this.getMethod() != HTTPMethod.GET) {
             RequestBody body = RequestBody.create(MediaType.parse("application/json"), this.getBody());
@@ -94,6 +98,18 @@ public class Action<T> {
 
         if (this.getExecutorID() != 0) builder.header("X-Proxied-Account-ID", "" + this.getExecutorID());
         return builder.build();
+    }
+
+    public void addQueryParam(String param, String value) {
+        this.getQueryParams().put(param, value);
+    }
+
+    protected String buildQueryParams() {
+        if (this.getQueryParams().size() == 0) return "";
+
+        List<String> params = new ArrayList<>();
+        this.getQueryParams().forEach((param, value) -> params.add(param + "=" + value));
+        return "?" + String.join("&", params);
     }
 
     public Client getClient() {
@@ -147,5 +163,9 @@ public class Action<T> {
 
     public void setExecutorID(int executorID) {
         this.executorID = executorID;
+    }
+
+    public HashMap<String, String> getQueryParams() {
+        return queryParams;
     }
 }
