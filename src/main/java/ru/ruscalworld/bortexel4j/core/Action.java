@@ -14,6 +14,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Action<T> {
     private final String endpoint;
@@ -65,15 +66,15 @@ public class Action<T> {
         executeAsync(response -> {});
     }
 
-    public void executeAsync(Callback<T> success) {
+    public void executeAsync(Consumer<T> success) {
         executeAsync(success, error -> {});
     }
 
-    public void executeAsync(Callback<T> success, Callback<Exception> error) {
+    public void executeAsync(Consumer<T> success, Consumer<Exception> error) {
         this.getClient().createCall(this.makeRequest()).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                error.handle(e);
+                error.accept(e);
             }
 
             @Override
@@ -83,10 +84,10 @@ public class Action<T> {
                         ru.ruscalworld.bortexel4j.core.Response<T> bResponse = getResponseHandler().handle(getType(), response);
                         if (bResponse == null) return;
 
-                        success.handle(bResponse.getResponse());
+                        success.accept(bResponse.getResponse());
                         setLastResponse(bResponse);
                     } catch (Exception e) {
-                        error.handle(e);
+                        error.accept(e);
                     }
                 } else if (response.body() != null) response.body().close();
             }
