@@ -22,6 +22,7 @@ public class Action<T> {
     private Object body;
     private int executorID;
     private final boolean handleResult;
+    private ru.ruscalworld.bortexel4j.core.Response<T> lastResponse;
     private final HashMap<String, String> queryParams = new HashMap<>();
     private ResponseHandler<T> responseHandler = new APIResponseHandler<>();
 
@@ -44,7 +45,10 @@ public class Action<T> {
             Response response = this.getClient().createCall(this.makeRequest()).execute();
             if (this.shouldHandleResult()) {
                 ru.ruscalworld.bortexel4j.core.Response<T> bResponse = getResponseHandler().handle(this.getType(), response);
-                if (bResponse != null) return bResponse.getResponse();
+                if (bResponse == null) return null;
+
+                this.setLastResponse(bResponse);
+                return bResponse.getResponse();
             } else {
                 if (response.body() != null) response.body().close();
                 return null;
@@ -76,7 +80,10 @@ public class Action<T> {
                 if (shouldHandleResult()) {
                     try {
                         ru.ruscalworld.bortexel4j.core.Response<T> bResponse = getResponseHandler().handle(getType(), response);
-                        if (bResponse != null) success.handle(bResponse.getResponse());
+                        if (bResponse == null) return;
+
+                        success.handle(bResponse.getResponse());
+                        setLastResponse(bResponse);
                     } catch (Exception e) {
                         error.handle(e);
                     }
@@ -100,7 +107,7 @@ public class Action<T> {
         return builder.build();
     }
 
-    public void addQueryParam(String param, String value) {
+    public void setQueryParam(String param, String value) {
         this.getQueryParams().put(param, value);
     }
 
@@ -167,5 +174,13 @@ public class Action<T> {
 
     public HashMap<String, String> getQueryParams() {
         return queryParams;
+    }
+
+    public ru.ruscalworld.bortexel4j.core.Response<T> getLastResponse() {
+        return lastResponse;
+    }
+
+    public void setLastResponse(ru.ruscalworld.bortexel4j.core.Response<T> lastResponse) {
+        this.lastResponse = lastResponse;
     }
 }

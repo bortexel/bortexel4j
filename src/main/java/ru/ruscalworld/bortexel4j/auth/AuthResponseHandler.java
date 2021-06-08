@@ -1,7 +1,6 @@
 package ru.ruscalworld.bortexel4j.auth;
 
 import com.google.gson.Gson;
-import ru.ruscalworld.bortexel4j.core.APIError;
 import ru.ruscalworld.bortexel4j.core.Response;
 import ru.ruscalworld.bortexel4j.core.ResponseHandler;
 import ru.ruscalworld.bortexel4j.exceptions.LoginException;
@@ -20,12 +19,12 @@ public class AuthResponseHandler<T> implements ResponseHandler<T> {
             APIUtil.checkResponse(apiResponse);
             T response = gson.fromJson(apiResponse.body().string(), type);
             if (response == null) return null;
-            return new Response<>(apiResponse.code(), Collections.emptyList(), Collections.emptyList(), response);
+            return new Response<>(apiResponse.code(), Collections.emptyList(), Collections.emptyList(), response, null);
         } else if (apiResponse.code() != 204) {
             assert apiResponse.body() != null;
             AuthError error = gson.fromJson(apiResponse.body().string(), AuthError.class);
             if (error.getCode() == 401) throw new LoginException(null, error.getText(), error.getCode());
-            return new Response<>(apiResponse.code(), new ArrayList<>() {{ add(error.getAPIError()); }}, Collections.emptyList(), null);
-        } else return new Response<>(apiResponse.code(), Collections.emptyList(), Collections.emptyList(), null);
+            return new Response<>(apiResponse.code(), new ArrayList<>() {{ add(error.getAPIError()); }}, Collections.emptyList(), null, null);
+        } else return new Response<>(apiResponse.code(), Collections.emptyList(), Collections.emptyList(), null, null);
     }
 }
