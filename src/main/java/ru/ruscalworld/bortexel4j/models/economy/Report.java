@@ -52,8 +52,8 @@ public class Report {
         return action;
     }
 
-    public static Action<String> deleteByID(int id, Bortexel4J client) {
-        Action<String> action = new Action<>("/economy/reports/" + id, client);
+    public static Action<Void> deleteByID(int id, Bortexel4J client) {
+        Action<Void> action = new Action<>("/economy/reports/" + id, client);
         action.setMethod(HTTPMethod.DELETE);
         return action;
     }
@@ -66,7 +66,7 @@ public class Report {
         return action;
     }
 
-    public Action<String> delete(Bortexel4J client) {
+    public Action<Void> delete(Bortexel4J client) {
         return deleteByID(this.getID(), client);
     }
 
