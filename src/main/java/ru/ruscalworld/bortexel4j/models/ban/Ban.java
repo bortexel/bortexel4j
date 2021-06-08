@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
 import ru.ruscalworld.bortexel4j.core.HTTPMethod;
+import ru.ruscalworld.bortexel4j.core.PaginatedListAction;
 
 import java.net.InetAddress;
 import java.sql.Timestamp;
@@ -63,9 +64,9 @@ public class Ban {
         return action;
     }
 
-    public static Action<List<Ban>> getAll(Bortexel4J client) {
-        Action<List<Ban>> action = new Action<>("/bans", client);
-        action.setResponseType(TypeToken.getParameterized(List.class, Ban.class).getType());
+    public static PaginatedListAction<Ban> getAll(Bortexel4J client) {
+        PaginatedListAction<Ban> action = new PaginatedListAction<>("/bans", client);
+        action.setResponseListType(Ban.class);
         return action;
     }
 
@@ -75,7 +76,7 @@ public class Ban {
 
     public static Action<List<Ban>> getByAddress(String address, Bortexel4J client) {
         Action<List<Ban>> action = new Action<>("/addresses/" + address + "/bans", client);
-        action.setResponseType(TypeToken.getParameterized(List.class, Ban.class).getType());
+        action.setResponseListType(Ban.class);
         return action;
     }
 

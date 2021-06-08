@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
+import ru.ruscalworld.bortexel4j.core.PaginatedAction;
+import ru.ruscalworld.bortexel4j.core.PaginatedListAction;
 import ru.ruscalworld.bortexel4j.models.ban.Ban;
 import ru.ruscalworld.bortexel4j.models.warning.Warning;
 
@@ -62,9 +64,9 @@ public class Account {
         return action;
     }
 
-    public static Action<List<Account>> getAll(Bortexel4J client) {
-        Action<List<Account>> action = new Action<>("/accounts", client);
-        action.setResponseType(TypeToken.getParameterized(List.class, Account.class).getType());
+    public static PaginatedListAction<Account> getAll(Bortexel4J client) {
+        PaginatedListAction<Account> action = new PaginatedListAction<>("/accounts", client);
+        action.setResponseListType(Account.class);
         return action;
     }
 

@@ -2,6 +2,7 @@ package ru.ruscalworld.bortexel4j.core;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import okhttp3.Response;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
@@ -133,6 +134,10 @@ public class Action<T> {
 
     public void setResponseType(Type type) {
         this.type = type;
+    }
+
+    public void setResponseListType(Type type) {
+        this.setResponseType(TypeToken.getParameterized(List.class, type).getType());
     }
 
     public HTTPMethod getMethod() {

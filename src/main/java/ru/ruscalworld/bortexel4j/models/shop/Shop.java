@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
+import ru.ruscalworld.bortexel4j.core.PaginatedAction;
+import ru.ruscalworld.bortexel4j.core.PaginatedListAction;
 import ru.ruscalworld.bortexel4j.models.economy.Report;
 import ru.ruscalworld.bortexel4j.models.taxes.Taxes;
 import ru.ruscalworld.bortexel4j.util.Location;
@@ -55,13 +57,13 @@ public class Shop {
         return action;
     }
 
-    public static Action<List<Shop>> getAll() {
+    public static PaginatedListAction<Shop> getAll() {
         return getAll(new Bortexel4J());
     }
 
-    public static Action<List<Shop>> getAll(Bortexel4J client) {
-        Action<List<Shop>> action = new Action<>("/shops", client);
-        action.setResponseType(TypeToken.getParameterized(List.class, Shop.class).getType());
+    public static PaginatedListAction<Shop> getAll(Bortexel4J client) {
+        PaginatedListAction<Shop> action = new PaginatedListAction<>("/shops", client);
+        action.setResponseListType(Shop.class);
         return action;
     }
 

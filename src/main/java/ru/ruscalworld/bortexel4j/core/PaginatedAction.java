@@ -1,13 +1,11 @@
 package ru.ruscalworld.bortexel4j.core;
 
-import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Client;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaginatedAction<T> extends Action<List<T>> implements Cloneable {
+public class PaginatedAction<T> extends Action<T> implements Cloneable {
     public PaginatedAction(String endpoint, Client client) {
         super(endpoint, client);
     }
@@ -60,33 +58,15 @@ public class PaginatedAction<T> extends Action<List<T>> implements Cloneable {
         return actions;
     }
 
-
-    public List<T> fetchAll() {
-        List<T> result = new ArrayList<>();
-
-        for (PaginatedAction<T> action : this.getAllPages()) {
-            List<T> currentResult = action.execute();
-            if (currentResult == null) continue;
-            result.addAll(currentResult);
-        }
-
-        return result;
-    }
-
-    @Override
-    public void setResponseType(Type type) {
-        super.setResponseType(TypeToken.getParameterized(List.class, type).getType());
-    }
-
     protected void ensureIsPaginated() {
-        Response<List<T>> lastResponse = this.getLastResponse();
+        Response<T> lastResponse = this.getLastResponse();
         if (lastResponse == null) throw new IllegalStateException("This action has no cached response yet");
         if (lastResponse.getMeta() == null || lastResponse.getMeta().getPagination() == null)
             throw new IllegalStateException("The endpoint this action related with doesn't provide pagination info");
     }
 
     public int getCurrentPage() {
-        Response<List<T>> lastResponse = this.getLastResponse();
+        Response<T> lastResponse = this.getLastResponse();
         if (lastResponse == null) return 1;
         if (lastResponse.getMeta() == null || lastResponse.getMeta().getPagination() == null) return 1;
         return lastResponse.getMeta().getPagination().getCurrentPage();

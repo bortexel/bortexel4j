@@ -1,11 +1,9 @@
 package ru.ruscalworld.bortexel4j.models.photo;
 
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
-
-import java.util.List;
+import ru.ruscalworld.bortexel4j.core.PaginatedListAction;
 
 public class Photo {
     private final int id;
@@ -35,13 +33,13 @@ public class Photo {
         return action;
     }
 
-    public static Action<List<Photo>> getAll() {
+    public static PaginatedListAction<Photo> getAll() {
         return getAll(new Bortexel4J());
     }
 
-    public static Action<List<Photo>> getAll(Bortexel4J client) {
-        Action<List<Photo>> action = new Action<>("/photos", client);
-        action.setResponseType(TypeToken.getParameterized(List.class, Photo.class).getType());
+    public static PaginatedListAction<Photo> getAll(Bortexel4J client) {
+        PaginatedListAction<Photo> action = new PaginatedListAction<>("/photos", client);
+        action.setResponseListType(Photo.class);
         return action;
     }
 

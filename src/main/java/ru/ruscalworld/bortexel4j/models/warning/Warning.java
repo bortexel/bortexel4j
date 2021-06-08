@@ -6,6 +6,8 @@ import org.jetbrains.annotations.Nullable;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
 import ru.ruscalworld.bortexel4j.core.HTTPMethod;
+import ru.ruscalworld.bortexel4j.core.PaginatedAction;
+import ru.ruscalworld.bortexel4j.core.PaginatedListAction;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -41,9 +43,9 @@ public class Warning {
         this.createdAt = createdAt;
     }
 
-    public static Action<List<Warning>> getAll(Bortexel4J client) {
-        Action<List<Warning>> action = new Action<>("/warnings", client);
-        action.setResponseType(TypeToken.getParameterized(List.class, Warning.class).getType());
+    public static PaginatedListAction<Warning> getAll(Bortexel4J client) {
+        PaginatedListAction<Warning> action = new PaginatedListAction<>("/warnings", client);
+        action.setResponseListType(Warning.class);
         return action;
     }
 
