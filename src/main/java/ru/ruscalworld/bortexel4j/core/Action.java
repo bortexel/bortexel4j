@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import okhttp3.Response;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
-import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.Client;
 
 import java.io.IOException;
@@ -23,6 +22,7 @@ public class Action<T> {
     private HTTPMethod method;
     private Object body;
     private int executorID;
+    private String realAddress;
     private final boolean handleResult;
     private ru.ruscalworld.bortexel4j.core.Response<T> lastResponse;
     private final HashMap<String, String> queryParams = new HashMap<>();
@@ -106,6 +106,11 @@ public class Action<T> {
         }
 
         if (this.getExecutorID() != 0) builder.header("X-Proxied-Account-ID", "" + this.getExecutorID());
+        if (this.getRealAddress() != null) {
+            builder.header("X-Forwarded-For", this.getRealAddress());
+            builder.header("X-Real-IP", this.getRealAddress());
+        }
+
         return builder.build();
     }
 
@@ -188,5 +193,13 @@ public class Action<T> {
 
     public void setLastResponse(ru.ruscalworld.bortexel4j.core.Response<T> lastResponse) {
         this.lastResponse = lastResponse;
+    }
+
+    public String getRealAddress() {
+        return realAddress;
+    }
+
+    public void setRealAddress(String realAddress) {
+        this.realAddress = realAddress;
     }
 }
