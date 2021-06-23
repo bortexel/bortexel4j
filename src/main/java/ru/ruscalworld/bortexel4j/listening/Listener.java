@@ -16,7 +16,10 @@ public class Listener extends WebSocketListener {
     @Override
     public void onOpen(@NotNull WebSocket webSocket, @NotNull Response response) {
         server.getLogger().info("Connected to WebSocket at " + server.getURL());
-        new Message(Operations.HELLO, new Message.Authorization(this.server.getToken())).send(webSocket);
+        Message.Authorization authorization = new Message.Authorization(this.server.getToken());
+        if (this.server.getEnvironment() != null) authorization.setEnvironment(this.server.getEnvironment());
+        if (this.server.getName() != null) authorization.setName(this.server.getName());
+        new Message(Operations.HELLO, authorization).send(webSocket);
     }
 
     @Override

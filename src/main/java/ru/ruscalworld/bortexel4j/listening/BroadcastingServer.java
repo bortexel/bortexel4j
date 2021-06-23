@@ -14,6 +14,8 @@ import java.util.List;
 public class BroadcastingServer {
     private String url;
     private String token;
+    private String name;
+    private String environment;
     private Timestamp lastMessageReceived;
     private WebSocket webSocket;
     private OkHttpClient client;
@@ -107,5 +109,21 @@ public class BroadcastingServer {
 
     public void setStatusChecker(StatusChecker statusChecker) {
         this.statusChecker = statusChecker;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(String environment) {
+        this.environment = environment;
     }
 }
