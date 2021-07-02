@@ -3,6 +3,7 @@ package ru.ruscalworld.bortexel4j.listening;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.LoggerFactory;
 import ru.ruscalworld.bortexel4j.exceptions.WebSocketException;
 import ru.ruscalworld.bortexel4j.listening.events.Event;
 import ru.ruscalworld.bortexel4j.listening.events.EventListener;
@@ -26,7 +27,7 @@ public class IncomingMessageHandler {
         switch (message.getOperation()) {
             case Operations.ERROR:
                 WebSocketException exception = gson.fromJson(payload, WebSocketException.class);
-                exception.printStackTrace();
+                this.server.getLogger().trace("Exception in WebSocket connection: ", exception);
                 return false;
             case Operations.NEW_EVENT:
                 Event<Object> event = gson.fromJson(payload, TypeToken.getParameterized(Event.class, message.getEventType()).getType());

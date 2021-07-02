@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import okhttp3.Response;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.LoggerFactory;
 import ru.ruscalworld.bortexel4j.Client;
 
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class Action<T> {
                 return null;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LoggerFactory.getLogger(this.getClass()).trace("Exception while executing action: ", e);
         }
 
         return null;

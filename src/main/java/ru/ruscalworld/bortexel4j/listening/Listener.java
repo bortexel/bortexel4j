@@ -47,8 +47,7 @@ public class Listener extends WebSocketListener {
             Thread.sleep(5000L);
             server.connect();
         } catch (InterruptedException e) {
-            server.getLogger().error("Unable to reconnect");
-            e.printStackTrace();
+            server.getLogger().trace("Unable to reconnect: ", e);
         }
     }
 }

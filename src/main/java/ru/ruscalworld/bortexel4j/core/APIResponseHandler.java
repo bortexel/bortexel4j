@@ -2,6 +2,8 @@ package ru.ruscalworld.bortexel4j.core;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.ruscalworld.bortexel4j.exceptions.AuthorizationException;
 import ru.ruscalworld.bortexel4j.exceptions.BortexelException;
 import ru.ruscalworld.bortexel4j.exceptions.NotFoundException;
@@ -21,7 +23,8 @@ public class APIResponseHandler<T> implements ResponseHandler<T> {
 
         if (response == null) return null;
 
-        for (String warning : response.getWarnings()) System.out.println("Bortexel API warning: " + warning);
+        Logger logger = LoggerFactory.getLogger(this.getClass());
+        for (String warning : response.getWarnings()) logger.warn("Bortexel API warning: {}", warning);
         for (APIError error : response.getErrors()) {
             switch (response.getStatus()) {
                 case 401:
