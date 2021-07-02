@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.exceptions.WebSocketException;
 import ru.ruscalworld.bortexel4j.listening.events.Event;
 import ru.ruscalworld.bortexel4j.listening.events.EventListener;
+import ru.ruscalworld.bortexel4j.listening.events.ban.BanDeletedEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.GenericBanEvent;
 import ru.ruscalworld.bortexel4j.listening.events.warning.GenericWarningEvent;
 
@@ -46,7 +47,7 @@ public class IncomingMessageHandler {
                     listener.onBanUpdated(new GenericBanEvent(event));
                     break;
                 case Event.BAN_DELETED_EVENT:
-                    listener.onBanDeleted(new GenericBanEvent(event));
+                    listener.onBanDeleted(new BanDeletedEvent(event));
                     break;
                 case Event.WARNING_CREATED_EVENT:
                     listener.onWarningCreated(new GenericWarningEvent(event));
