@@ -8,10 +8,12 @@ public class GenericBanEvent extends Event<GenericBanEvent> {
 
     public GenericBanEvent(Event<Object> event) {
         super(event.getEventID(), (GenericBanEvent) event.getPayload());
+        this.ban = ((GenericBanEvent) event.getPayload()).getBan();
     }
 
     public GenericBanEvent(int eventID, GenericBanEvent payload) {
         super(eventID, payload);
+        this.ban = payload.getBan();
     }
 
     public Ban getBan() {

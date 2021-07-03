@@ -8,10 +8,12 @@ public class GenericWarningEvent extends Event<GenericWarningEvent> {
 
     public GenericWarningEvent(Event<Object> event) {
         super(event.getEventID(), (GenericWarningEvent) event.getPayload());
+        this.warning = ((GenericWarningEvent) event.getPayload()).getWarning();
     }
 
     public GenericWarningEvent(int eventID, GenericWarningEvent payload) {
         super(eventID, payload);
+        this.warning = payload.getWarning();
     }
 
     public Warning getWarning() {

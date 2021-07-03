@@ -15,7 +15,6 @@ public class Event<T> {
 
     @SerializedName("event_id")
     private final int eventID;
-
     private final T payload;
 
     public Event(int eventID, T payload) {
