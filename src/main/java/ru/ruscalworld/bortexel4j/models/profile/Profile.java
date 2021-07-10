@@ -1,6 +1,7 @@
 package ru.ruscalworld.bortexel4j.models.profile;
 
 import com.google.gson.annotations.SerializedName;
+import org.jetbrains.annotations.Nullable;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
 
@@ -18,8 +19,12 @@ public class Profile {
     private final long groups;
     private final Bans bans;
     private final Warnings warnings;
+    @SerializedName("discord")
+    private final String discordTag;
+    @SerializedName("discord_id")
+    private final String discordID;
 
-    public Profile(int accountID, int userID, String username, Timestamp lastLogin, long groups, Bans bans, Warnings warnings) {
+    public Profile(int accountID, int userID, String username, Timestamp lastLogin, long groups, Bans bans, Warnings warnings, String discordTag, String discordID) {
         this.accountID = accountID;
         this.userID = userID;
         this.username = username;
@@ -27,6 +32,8 @@ public class Profile {
         this.groups = groups;
         this.bans = bans;
         this.warnings = warnings;
+        this.discordTag = discordTag;
+        this.discordID = discordID;
     }
 
     public static Action<Profile> getByUserName(String username) {
@@ -65,6 +72,14 @@ public class Profile {
 
     public Warnings getWarnings() {
         return warnings;
+    }
+
+    public @Nullable String getDiscordTag() {
+        return discordTag;
+    }
+
+    public @Nullable String getDiscordID() {
+        return discordID;
     }
 
     public static class Warnings {
