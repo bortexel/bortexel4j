@@ -1,6 +1,7 @@
 package ru.ruscalworld.bortexel4j.models.city;
 
 import com.google.gson.annotations.SerializedName;
+import org.jetbrains.annotations.Nullable;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
 import ru.ruscalworld.bortexel4j.core.PaginatedListAction;
@@ -130,14 +131,21 @@ public class City {
 
     public static class Images {
         @SerializedName("screenshot_url")
-        private final String screenshotURL;
+        private final @Nullable String screenshotURL;
+        @SerializedName("emblem_url")
+        private final @Nullable String emblemURL;
 
-        public Images(String screenshotURL) {
+        public Images(@Nullable String screenshotURL, @Nullable String emblemURL) {
             this.screenshotURL = screenshotURL;
+            this.emblemURL = emblemURL;
         }
 
-        public String getScreenshotURL() {
+        public @Nullable String getScreenshotURL() {
             return screenshotURL;
+        }
+
+        public @Nullable String getEmblemURL() {
+            return emblemURL;
         }
     }
 
