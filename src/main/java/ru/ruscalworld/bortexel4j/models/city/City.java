@@ -129,6 +129,7 @@ public class City {
     }
 
     public static class Images {
+        @SerializedName("screenshot_url")
         private final String screenshotURL;
 
         public Images(String screenshotURL) {
