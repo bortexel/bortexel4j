@@ -1,10 +1,10 @@
 package ru.ruscalworld.bortexel4j.listening.events.shop;
 
 import ru.ruscalworld.bortexel4j.listening.events.Event;
-import ru.ruscalworld.bortexel4j.models.city.City;
+import ru.ruscalworld.bortexel4j.models.shop.Shop;
 
 public class GenericShopEvent extends Event<GenericShopEvent> {
-    private City shop;
+    private Shop shop;
 
     public GenericShopEvent(int eventID, GenericShopEvent payload) {
         super(eventID, payload);
@@ -15,11 +15,11 @@ public class GenericShopEvent extends Event<GenericShopEvent> {
         this.shop = ((GenericShopEvent) event.getPayload()).getShop();
     }
 
-    public City getShop() {
+    public Shop getShop() {
         return shop;
     }
 
-    protected void setShop(City shop) {
+    protected void setShop(Shop shop) {
         this.shop = shop;
     }
 }
