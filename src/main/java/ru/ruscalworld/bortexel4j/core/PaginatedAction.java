@@ -50,6 +50,7 @@ public class PaginatedAction<T> extends Action<T> implements Cloneable {
         for (int i = 2; i <= pagination.getTotalPages(); i++) {
             try {
                 PaginatedAction<T> clone = (PaginatedAction<T>) this.clone();
+                clone.resetQueryParams();
                 clone.setPage(i);
                 actions.add(clone);
             } catch (CloneNotSupportedException ignored) { }

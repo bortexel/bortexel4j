@@ -26,7 +26,7 @@ public class Action<T> {
     private String realAddress;
     private final boolean handleResult;
     private ru.ruscalworld.bortexel4j.core.Response<T> lastResponse;
-    private final HashMap<String, String> queryParams = new HashMap<>();
+    private HashMap<String, String> queryParams = new HashMap<>();
     private ResponseHandler<T> responseHandler = new APIResponseHandler<>();
 
     public Action(String endpoint, boolean handleResult, Client client) {
@@ -186,6 +186,10 @@ public class Action<T> {
 
     public HashMap<String, String> getQueryParams() {
         return queryParams;
+    }
+
+    public void resetQueryParams() {
+        this.queryParams = new HashMap<>();
     }
 
     public ru.ruscalworld.bortexel4j.core.Response<T> getLastResponse() {
