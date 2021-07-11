@@ -13,6 +13,14 @@ public class Event<T> {
     public static final int BAN_UPDATED_EVENT = 31;
     public static final int BAN_DELETED_EVENT = 32;
 
+    public static final int SHOP_CREATED_EVENT = 40;
+    public static final int SHOP_UPDATED_EVENT = 41;
+    public static final int SHOP_DELETED_EVENT = 42;
+
+    public static final int CITY_CREATED_EVENT = 50;
+    public static final int CITY_UPDATED_EVENT = 51;
+    public static final int CITY_DELETED_EVENT = 52;
+
     @SerializedName("event_id")
     private final int eventID;
     private final T payload;

@@ -9,6 +9,8 @@ import ru.ruscalworld.bortexel4j.listening.events.Event;
 import ru.ruscalworld.bortexel4j.listening.events.EventListener;
 import ru.ruscalworld.bortexel4j.listening.events.ban.BanDeletedEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.GenericBanEvent;
+import ru.ruscalworld.bortexel4j.listening.events.city.GenericCityEvent;
+import ru.ruscalworld.bortexel4j.listening.events.shop.GenericShopEvent;
 import ru.ruscalworld.bortexel4j.listening.events.warning.GenericWarningEvent;
 
 import java.sql.Timestamp;
@@ -58,6 +60,24 @@ public class IncomingMessageHandler {
                     break;
                 case Event.WARNING_DELETED_EVENT:
                     listener.onWarningDeleted(new GenericWarningEvent(event));
+                    break;
+                case Event.SHOP_CREATED_EVENT:
+                    listener.onShopCreated(new GenericShopEvent(event));
+                    break;
+                case Event.SHOP_UPDATED_EVENT:
+                    listener.onShopUpdated(new GenericShopEvent(event));
+                    break;
+                case Event.SHOP_DELETED_EVENT:
+                    listener.onShopDeleted(new GenericShopEvent(event));
+                    break;
+                case Event.CITY_CREATED_EVENT:
+                    listener.onCityCreated(new GenericCityEvent(event));
+                    break;
+                case Event.CITY_UPDATED_EVENT:
+                    listener.onCityUpdated(new GenericCityEvent(event));
+                    break;
+                case Event.CITY_DELETED_EVENT:
+                    listener.onCityDeleted(new GenericCityEvent(event));
                     break;
             }
         }

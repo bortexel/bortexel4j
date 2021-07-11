@@ -7,6 +7,8 @@ import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.bortexel4j.listening.events.Event;
 import ru.ruscalworld.bortexel4j.listening.events.ban.BanDeletedEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.GenericBanEvent;
+import ru.ruscalworld.bortexel4j.listening.events.city.GenericCityEvent;
+import ru.ruscalworld.bortexel4j.listening.events.shop.GenericShopEvent;
 import ru.ruscalworld.bortexel4j.listening.events.warning.GenericWarningEvent;
 
 import java.lang.reflect.Type;
@@ -38,6 +40,14 @@ public class Message {
             case Event.WARNING_UPDATED_EVENT:
             case Event.WARNING_DELETED_EVENT:
                 return GenericWarningEvent.class;
+            case Event.SHOP_CREATED_EVENT:
+            case Event.SHOP_UPDATED_EVENT:
+            case Event.SHOP_DELETED_EVENT:
+                return GenericShopEvent.class;
+            case Event.CITY_CREATED_EVENT:
+            case Event.CITY_UPDATED_EVENT:
+            case Event.CITY_DELETED_EVENT:
+                return GenericCityEvent.class;
         }
 
         return Object.class;
