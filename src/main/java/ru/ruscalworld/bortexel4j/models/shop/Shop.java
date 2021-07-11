@@ -1,10 +1,8 @@
 package ru.ruscalworld.bortexel4j.models.shop;
 
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
-import ru.ruscalworld.bortexel4j.core.PaginatedAction;
 import ru.ruscalworld.bortexel4j.core.PaginatedListAction;
 import ru.ruscalworld.bortexel4j.models.economy.Report;
 import ru.ruscalworld.bortexel4j.models.taxes.Taxes;
@@ -140,14 +138,14 @@ public class Shop {
 
     public static class Images {
         @SerializedName("screenshot_url")
-        private final String sreenshotURL;
+        private final String screenshotURL;
 
-        public Images(String sreenshotURL) {
-            this.sreenshotURL = sreenshotURL;
+        public Images(String screenshotURL) {
+            this.screenshotURL = screenshotURL;
         }
 
-        public String getSreenshotURL() {
-            return sreenshotURL;
+        public String getScreenshotURL() {
+            return screenshotURL;
         }
     }
 
