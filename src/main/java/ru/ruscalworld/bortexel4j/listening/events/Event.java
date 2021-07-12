@@ -21,6 +21,11 @@ public class Event<T> {
     public static final int CITY_UPDATED_EVENT = 51;
     public static final int CITY_DELETED_EVENT = 52;
 
+    public static final int USER_CREATED_EVENT = 60;
+    public static final int USER_UPDATED_EVENT = 61;
+    public static final int USER_DELETED_EVENT = 62;
+    public static final int USER_ACTIVITY_UPDATED_EVENT = 63;
+
     @SerializedName("event_id")
     private final int eventID;
     private final T payload;
