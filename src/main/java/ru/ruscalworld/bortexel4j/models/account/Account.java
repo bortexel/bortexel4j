@@ -1,12 +1,11 @@
 package ru.ruscalworld.bortexel4j.models.account;
 
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
-import ru.ruscalworld.bortexel4j.core.PaginatedAction;
 import ru.ruscalworld.bortexel4j.core.PaginatedListAction;
 import ru.ruscalworld.bortexel4j.models.ban.Ban;
+import ru.ruscalworld.bortexel4j.models.user.User;
 import ru.ruscalworld.bortexel4j.models.warning.Warning;
 
 import java.util.List;
@@ -82,6 +81,12 @@ public class Account {
         return action;
     }
 
+    public Action<AccountUsers> getUsers(Bortexel4J client) {
+        Action<AccountUsers> action = new Action<>("/accounts/" + this.getID() + "/users", client);
+        action.setResponseType(AccountUsers.class);
+        return action;
+    }
+
     public static class AccountWarnings {
         private final Account account;
         private final List<Warning> warnings;
@@ -115,6 +120,24 @@ public class Account {
 
         public List<Ban> getBans() {
             return bans;
+        }
+    }
+
+    public static class AccountUsers {
+        private final Account account;
+        private final List<User> users;
+
+        public AccountUsers(Account account, List<User> users) {
+            this.account = account;
+            this.users = users;
+        }
+
+        public Account getAccount() {
+            return account;
+        }
+
+        public List<User> getUsers() {
+            return users;
         }
     }
 
