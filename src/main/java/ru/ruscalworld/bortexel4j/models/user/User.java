@@ -28,6 +28,9 @@ public class User {
     @SerializedName("allow_till")
     private int allowTill;
 
+    @SerializedName("online_auth")
+    private boolean onlineAuth;
+
     @SerializedName("deny_proxy")
     private boolean denyProxy;
 
@@ -214,6 +217,14 @@ public class User {
 
     public String getSkinSystem() {
         return skinSystem;
+    }
+
+    public boolean isOnlineAuthEnabled() {
+        return onlineAuth;
+    }
+
+    public void setOnlineAuthEnabled(boolean onlineAuth) {
+        this.onlineAuth = onlineAuth;
     }
 
     public int getAllowFrom() {
