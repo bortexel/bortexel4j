@@ -14,7 +14,7 @@ public class User {
     private String username;
 
     @SerializedName("last_login")
-    private int lastLogin;
+    private Timestamp lastLogin;
 
     @SerializedName("valid_till")
     private Timestamp validTill;
@@ -34,7 +34,6 @@ public class User {
     @SerializedName("deny_proxy")
     private boolean denyProxy;
 
-    private boolean permanent;
     private boolean strange;
 
     @SerializedName("warn_power")
@@ -49,13 +48,12 @@ public class User {
     @SerializedName("skin_name")
     private final String skinName;
 
-    public User(int id, String username, int lastLogin, Timestamp validTill, Timestamp activeTill, boolean permanent, boolean strange, int warnPower, int warnCount, String skinSystem, String skinName) {
+    public User(int id, String username, Timestamp lastLogin, Timestamp validTill, Timestamp activeTill, boolean strange, int warnPower, int warnCount, String skinSystem, String skinName) {
         this.id = id;
         this.username = username;
         this.lastLogin = lastLogin;
         this.validTill = validTill;
         this.activeTill = activeTill;
-        this.permanent = permanent;
         this.strange = strange;
         this.warnPower = warnPower;
         this.warnCount = warnCount;
@@ -155,11 +153,11 @@ public class User {
         this.username = username;
     }
 
-    public int getLastLogin() {
+    public Timestamp getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(int lastLogin) {
+    public void setLastLogin(Timestamp lastLogin) {
         this.lastLogin = lastLogin;
     }
 
@@ -180,11 +178,7 @@ public class User {
     }
 
     public boolean isPermanent() {
-        return permanent;
-    }
-
-    public void setPermanent(boolean permanent) {
-        this.permanent = permanent;
+        return this.validTill == null;
     }
 
     public boolean isStrange() {
