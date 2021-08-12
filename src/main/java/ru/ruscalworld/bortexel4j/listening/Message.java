@@ -8,6 +8,7 @@ import ru.ruscalworld.bortexel4j.listening.events.Event;
 import ru.ruscalworld.bortexel4j.listening.events.ban.BanDeletedEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.GenericBanEvent;
 import ru.ruscalworld.bortexel4j.listening.events.city.GenericCityEvent;
+import ru.ruscalworld.bortexel4j.listening.events.forms.GenericRequestEvent;
 import ru.ruscalworld.bortexel4j.listening.events.shop.GenericShopEvent;
 import ru.ruscalworld.bortexel4j.listening.events.user.GenericUserEvent;
 import ru.ruscalworld.bortexel4j.listening.events.warning.GenericWarningEvent;
@@ -51,6 +52,9 @@ public class Message {
                 return GenericCityEvent.class;
             case Event.USER_ACTIVITY_UPDATED_EVENT:
                 return GenericUserEvent.class;
+            case Event.FORM_ACTION_BASE + Event.WHITELIST_FORM_OFFSET + 3:
+            case Event.FORM_ACTION_BASE + Event.WHITELIST_FORM_OFFSET + 4:
+                return GenericRequestEvent.class;
         }
 
         return Object.class;

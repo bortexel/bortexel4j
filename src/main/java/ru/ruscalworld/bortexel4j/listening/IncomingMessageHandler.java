@@ -10,6 +10,7 @@ import ru.ruscalworld.bortexel4j.listening.events.EventListener;
 import ru.ruscalworld.bortexel4j.listening.events.ban.BanDeletedEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.GenericBanEvent;
 import ru.ruscalworld.bortexel4j.listening.events.city.GenericCityEvent;
+import ru.ruscalworld.bortexel4j.listening.events.forms.GenericRequestEvent;
 import ru.ruscalworld.bortexel4j.listening.events.shop.GenericShopEvent;
 import ru.ruscalworld.bortexel4j.listening.events.user.GenericUserEvent;
 import ru.ruscalworld.bortexel4j.listening.events.warning.GenericWarningEvent;
@@ -82,6 +83,12 @@ public class IncomingMessageHandler {
                     break;
                 case Event.USER_ACTIVITY_UPDATED_EVENT:
                     listener.onUserActivityUpdated(new GenericUserEvent(event));
+                    break;
+                case Event.FORM_ACTION_BASE + Event.WHITELIST_FORM_OFFSET + 3:
+                    listener.onWhitelistFormSubmitted(new GenericRequestEvent(event));
+                    break;
+                case Event.FORM_ACTION_BASE + Event.WHITELIST_FORM_OFFSET + 4:
+                    listener.onWhitelistFormReviewed(new GenericRequestEvent(event));
                     break;
             }
         }

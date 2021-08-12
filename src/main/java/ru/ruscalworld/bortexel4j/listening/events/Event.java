@@ -26,6 +26,9 @@ public class Event<T> {
     public static final int USER_DELETED_EVENT = 62;
     public static final int USER_ACTIVITY_UPDATED_EVENT = 63;
 
+    public static final int FORM_ACTION_BASE = 1000;
+    public static final int WHITELIST_FORM_OFFSET = 10;
+
     @SerializedName("event_id")
     private final int eventID;
     private final T payload;

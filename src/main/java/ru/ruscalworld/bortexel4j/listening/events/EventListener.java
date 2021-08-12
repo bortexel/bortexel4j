@@ -3,6 +3,7 @@ package ru.ruscalworld.bortexel4j.listening.events;
 import ru.ruscalworld.bortexel4j.listening.events.ban.BanDeletedEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.GenericBanEvent;
 import ru.ruscalworld.bortexel4j.listening.events.city.GenericCityEvent;
+import ru.ruscalworld.bortexel4j.listening.events.forms.GenericRequestEvent;
 import ru.ruscalworld.bortexel4j.listening.events.shop.GenericShopEvent;
 import ru.ruscalworld.bortexel4j.listening.events.user.GenericUserEvent;
 import ru.ruscalworld.bortexel4j.listening.events.warning.GenericWarningEvent;
@@ -25,4 +26,7 @@ public class EventListener {
     public void onCityDeleted(GenericCityEvent event) {}
 
     public void onUserActivityUpdated(GenericUserEvent event) {}
+
+    public void onWhitelistFormSubmitted(GenericRequestEvent event) {}
+    public void onWhitelistFormReviewed(GenericRequestEvent event) {}
 }
