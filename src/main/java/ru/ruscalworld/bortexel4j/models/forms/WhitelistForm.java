@@ -9,7 +9,6 @@ import ru.ruscalworld.bortexel4j.models.user.Address;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class WhitelistForm {
     private final int id;
@@ -17,7 +16,7 @@ public class WhitelistForm {
     private final int accountID;
     private final String username;
     @SerializedName("minecraft_id")
-    private final UUID minecraftID;
+    private final String minecraftID;
     private final Human human;
     private final List<Question> questions = new ArrayList<>();
     @SerializedName("friend_name")
@@ -39,7 +38,7 @@ public class WhitelistForm {
     @SerializedName("reviewed_at")
     private final Timestamp reviewedAt;
 
-    public WhitelistForm(int id, int accountID, String username, UUID minecraftID, Human human, String friendName, String email, LinkedEly ely, boolean isAccepted, int conclusion, String adminName, Integer adminID, Address address, Timestamp createdAt, Timestamp completedAt, Timestamp reviewedAt) {
+    public WhitelistForm(int id, int accountID, String username, String minecraftID, Human human, String friendName, String email, LinkedEly ely, boolean isAccepted, int conclusion, String adminName, Integer adminID, Address address, Timestamp createdAt, Timestamp completedAt, Timestamp reviewedAt) {
         this.id = id;
         this.accountID = accountID;
         this.username = username;
@@ -82,7 +81,7 @@ public class WhitelistForm {
         return username;
     }
 
-    public UUID getMinecraftID() {
+    public String getMinecraftID() {
         return minecraftID;
     }
 
