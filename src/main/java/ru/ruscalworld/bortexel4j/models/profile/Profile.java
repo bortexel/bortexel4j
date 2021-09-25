@@ -17,14 +17,14 @@ public class Profile {
     @SerializedName("last_login")
     private final Timestamp lastLogin;
     private final long groups;
-    private final Bans bans;
-    private final Warnings warnings;
+    private final BanStats bans;
+    private final WarningStats warnings;
     @SerializedName("discord")
     private final String discordTag;
     @SerializedName("discord_id")
     private final String discordID;
 
-    public Profile(int accountID, int userID, String username, Timestamp lastLogin, long groups, Bans bans, Warnings warnings, String discordTag, String discordID) {
+    public Profile(int accountID, int userID, String username, Timestamp lastLogin, long groups, BanStats bans, WarningStats warnings, String discordTag, String discordID) {
         this.accountID = accountID;
         this.userID = userID;
         this.username = username;
@@ -44,6 +44,22 @@ public class Profile {
         Action<Profile> action = new Action<>("/profiles/" + username, client);
         action.setResponseType(Profile.class);
         return action;
+    }
+
+    public Action<Ban.ProfileBans> getBans() {
+        return Ban.getProfileBans(this.getUsername());
+    }
+
+    public Action<Ban.ProfileBans> getBans(Bortexel4J client) {
+        return Ban.getProfileBans(this.getUsername(), client);
+    }
+
+    public Action<Warning.ProfileWarnings> getWarnings() {
+        return Warning.getProfileWarnings(this.getUsername());
+    }
+
+    public Action<Warning.ProfileWarnings> getWarnings(Bortexel4J client) {
+        return Warning.getProfileWarnings(this.getUsername(), client);
     }
 
     public int getAccountID() {
@@ -66,11 +82,11 @@ public class Profile {
         return groups;
     }
 
-    public Bans getBans() {
+    public BanStats getBanStats() {
         return bans;
     }
 
-    public Warnings getWarnings() {
+    public WarningStats getWarningStats() {
         return warnings;
     }
 
@@ -82,7 +98,7 @@ public class Profile {
         return discordID;
     }
 
-    public static class Warnings {
+    public static class WarningStats {
         private final int count;
         @SerializedName("total_power")
         private final int totalPower;
@@ -90,7 +106,7 @@ public class Profile {
         private final int currentPower;
         private final List<String> reasons;
 
-        public Warnings(int count, int totalPower, int currentPower, List<String> reasons) {
+        public WarningStats(int count, int totalPower, int currentPower, List<String> reasons) {
             this.count = count;
             this.totalPower = totalPower;
             this.currentPower = currentPower;
@@ -114,7 +130,7 @@ public class Profile {
         }
     }
 
-    public static class Bans {
+    public static class BanStats {
         private final int count;
         @SerializedName("active_count")
         private final int activeCount;
@@ -126,7 +142,7 @@ public class Profile {
         private final int permanentCount;
         private final List<String> reasons;
 
-        public Bans(int count, int activeCount, long totalDuration, int suspendedCount, int permanentCount, List<String> reasons) {
+        public BanStats(int count, int activeCount, long totalDuration, int suspendedCount, int permanentCount, List<String> reasons) {
             this.count = count;
             this.activeCount = activeCount;
             this.totalDuration = totalDuration;
