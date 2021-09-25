@@ -43,15 +43,15 @@ public class Warning {
         this.createdAt = createdAt;
     }
 
-    public static PaginatedListAction<Warning> getAll(Bortexel4J client) {
-        PaginatedListAction<Warning> action = new PaginatedListAction<>("/warnings", client);
-        action.setResponseListType(Warning.class);
-        return action;
-    }
-
     public static Action<Warning> getByID(int id, Bortexel4J client) {
         Action<Warning> action = new Action<>("/warnings/" + id, client);
         action.setResponseType(Warning.class);
+        return action;
+    }
+
+    public static PaginatedListAction<Warning> getAll(Bortexel4J client) {
+        PaginatedListAction<Warning> action = new PaginatedListAction<>("/warnings", client);
+        action.setResponseListType(Warning.class);
         return action;
     }
 

@@ -42,7 +42,7 @@ public class City {
     }
 
     public static Action<City> getByID(int id) {
-        return getByID(id, new Bortexel4J());
+        return getByID(id, Bortexel4J.anonymous());
     }
 
     public static Action<City> getByID(int id, Bortexel4J client) {
@@ -52,7 +52,7 @@ public class City {
     }
 
     public static PaginatedListAction<City> getAll() {
-        return getAll(new Bortexel4J());
+        return getAll(Bortexel4J.anonymous());
     }
 
     public static PaginatedListAction<City> getAll(Bortexel4J client) {
