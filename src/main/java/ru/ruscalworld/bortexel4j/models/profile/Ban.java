@@ -22,7 +22,7 @@ public class Ban {
     private final boolean byName;
     @SerializedName("created_at")
     private final Timestamp createdAt;
-    @SerializedName("updated_at")
+    @SerializedName("expires_at")
     private final Timestamp expiresAt;
 
     public Ban(int id, String userName, String adminName, String reason, boolean suspended, boolean byIP, boolean byName, Timestamp createdAt, Timestamp expiresAt) {
