@@ -57,6 +57,8 @@
                             <artifactSet>
                                 <includes>
                                     <include>com.google.code.gson:gson</include>
+                                    <include>com.squareup.okhttp3:okhttp</include>
+                                    <include>com.squareup.okio:okio</include>
                                 </includes>
                             </artifactSet>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
@@ -73,6 +75,14 @@
                                 <relocation>
                                     <pattern>com.google.code.gson</pattern>
                                     <shadedPattern>ru.bortexel.bortexel4j.dependencies.gson</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>okhttp3</pattern>
+                                    <shadedPattern>ru.bortexel.bortexel4j.dependencies.okhttp3</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>okio</pattern>
+                                    <shadedPattern>ru.bortexel.bortexel4j.dependencies.okio</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
