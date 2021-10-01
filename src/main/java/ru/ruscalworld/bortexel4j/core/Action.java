@@ -53,7 +53,8 @@ public class Action<T> {
                 this.setLastResponse(bResponse);
                 return bResponse.getResponse();
             } else {
-                if (response.body() != null) response.body().close();
+                ResponseBody body = response.body();
+                if (body != null) body.close();
                 return null;
             }
         } catch (IOException e) {
@@ -90,7 +91,10 @@ public class Action<T> {
                     } catch (Exception e) {
                         error.accept(e);
                     }
-                } else if (response.body() != null) response.body().close();
+                } else {
+                    ResponseBody body = response.body();
+                    if (body != null) body.close();
+                }
             }
         });
     }
@@ -100,7 +104,7 @@ public class Action<T> {
         builder.url(this.getClient().getApiUrl() + this.getEndpoint() + this.buildQueryParams());
 
         if (this.getMethod() != HTTPMethod.GET) {
-            RequestBody body = RequestBody.create(MediaType.parse("application/json"), this.getBody());
+            RequestBody body = RequestBody.create(this.getBody(), MediaType.parse("application/json"));
             builder.post(body);
             builder.method(this.getMethod().toString(), body);
             builder.header("Content-Type", "application/json");
