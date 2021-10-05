@@ -2,13 +2,16 @@ package ru.ruscalworld.bortexel4j.models.linking;
 
 import org.junit.jupiter.api.Test;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
+import ru.ruscalworld.bortexel4j.core.Action;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LinkingTest {
     @Test
     void create() {
-        Linking linking = Linking.create(Bortexel4J.login()).execute();
+        Action<Linking> action = Linking.create(Bortexel4J.login());
+        action.setExecutorID(1);
+        Linking linking = action.execute();
         assertNotNull(linking);
         assertNotNull(linking.getToken());
 
