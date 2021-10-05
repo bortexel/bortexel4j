@@ -54,9 +54,13 @@ public class Photo {
     }
 
     public static class Proxy {
+        @SerializedName("original_url")
         private final String originalURL;
+        @SerializedName("small_url")
         private final String smallURL;
+        @SerializedName("medium_url")
         private final String mediumURL;
+        @SerializedName("large_url")
         private final String largeURL;
 
         public Proxy(String originalURL, String smallURL, String mediumURL, String largeURL) {
