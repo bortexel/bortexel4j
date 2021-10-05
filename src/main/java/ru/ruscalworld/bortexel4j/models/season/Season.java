@@ -46,7 +46,7 @@ public class Season {
     }
 
     public static Action<Season> getByID(int id) {
-        return getByID(id, new Bortexel4J());
+        return getByID(id, Bortexel4J.anonymous());
     }
 
     public static Action<Season> getByID(int id, Bortexel4J client) {
@@ -56,7 +56,7 @@ public class Season {
     }
 
     public static Action<List<Season>> getAll() {
-        return getAll(new Bortexel4J());
+        return getAll(Bortexel4J.anonymous());
     }
 
     public static Action<List<Season>> getAll(Bortexel4J client) {
@@ -66,11 +66,15 @@ public class Season {
     }
 
     public Action<SeasonPhotos> getPhotos() {
-        return getPhotos(new Bortexel4J());
+        return getPhotos(Bortexel4J.anonymous());
     }
 
     public Action<SeasonPhotos> getPhotos(Bortexel4J client) {
-        Action<SeasonPhotos> action = new Action<>("/seasons/" + this.id + "/photos", client);
+        return getPhotos(false, client);
+    }
+
+    public Action<SeasonPhotos> getPhotos(boolean proxy, Bortexel4J client) {
+        Action<SeasonPhotos> action = new Action<>("/seasons/" + this.id + "/photos?proxy=" + proxy, client);
         action.setResponseType(SeasonPhotos.class);
         return action;
     }
