@@ -3,6 +3,7 @@ package ru.ruscalworld.bortexel4j.models.account;
 import com.google.gson.annotations.SerializedName;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
+import ru.ruscalworld.bortexel4j.core.HTTPMethod;
 import ru.ruscalworld.bortexel4j.core.PaginatedListAction;
 import ru.ruscalworld.bortexel4j.models.ban.Ban;
 import ru.ruscalworld.bortexel4j.models.user.User;
@@ -84,6 +85,12 @@ public class Account {
     public Action<AccountUsers> getUsers(Bortexel4J client) {
         Action<AccountUsers> action = new Action<>("/accounts/" + this.getID() + "/users", client);
         action.setResponseType(AccountUsers.class);
+        return action;
+    }
+
+    public Action<Void> unlinkDiscord(Bortexel4J client) {
+        Action<Void> action = new Action<>("/accounts/" + this.getID() + "/discord", client);
+        action.setMethod(HTTPMethod.DELETE);
         return action;
     }
 
