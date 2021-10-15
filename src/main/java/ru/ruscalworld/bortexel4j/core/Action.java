@@ -84,7 +84,10 @@ public class Action<T> {
                 if (shouldHandleResult()) {
                     try {
                         ru.ruscalworld.bortexel4j.core.Response<T> bResponse = getResponseHandler().handle(getType(), response);
-                        if (bResponse == null) return;
+                        if (bResponse == null) {
+                            success.accept(null);
+                            return;
+                        }
 
                         success.accept(bResponse.getResponse());
                         setLastResponse(bResponse);
