@@ -165,6 +165,10 @@ public class Bortexel4J implements Client {
         this.level = level;
     }
 
+    public Action<Void> ping() {
+        return new Action<>("/", this);
+    }
+
     public Action<Account> getAccountByID(int id) {
         return Account.getByID(id, this);
     }

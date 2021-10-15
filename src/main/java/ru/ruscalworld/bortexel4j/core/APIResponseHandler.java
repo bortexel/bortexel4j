@@ -2,6 +2,8 @@ package ru.ruscalworld.bortexel4j.core;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import okhttp3.ResponseBody;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.ruscalworld.bortexel4j.exceptions.AuthorizationException;
@@ -13,13 +15,14 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 
 public class APIResponseHandler<T> implements ResponseHandler<T> {
-    public Response<T> handle(Type type, okhttp3.Response apiResponse) throws RuntimeException, IOException {
+    public Response<T> handle(@NotNull Type type, okhttp3.Response apiResponse) throws RuntimeException, IOException {
         APIUtil.checkResponse(apiResponse);
 
         Gson gson = new Gson();
-        assert apiResponse.body() != null;
+        ResponseBody body = apiResponse.body();
+        assert body != null;
         Type fullType = TypeToken.getParameterized(Response.class, type).getType();
-        Response<T> response = gson.fromJson(apiResponse.body().string(), fullType);
+        Response<T> response = gson.fromJson(body.string(), fullType);
 
         if (response == null) return null;
 

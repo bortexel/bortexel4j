@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 public class Action<T> {
     private final String endpoint;
     private final Client client;
-    private Type type;
+    private Type type = Void.class;
     private HTTPMethod method;
     private Object body;
     private int executorID;
