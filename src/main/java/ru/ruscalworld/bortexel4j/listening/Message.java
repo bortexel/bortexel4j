@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import okhttp3.WebSocket;
 import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.bortexel4j.listening.events.Event;
+import ru.ruscalworld.bortexel4j.listening.events.account.GenericDiscordLinkEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.BanDeletedEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.GenericBanEvent;
 import ru.ruscalworld.bortexel4j.listening.events.city.GenericCityEvent;
@@ -55,6 +56,9 @@ public class Message {
             case Event.FORM_ACTION_BASE + Event.WHITELIST_FORM_OFFSET + 3:
             case Event.FORM_ACTION_BASE + Event.WHITELIST_FORM_OFFSET + 4:
                 return GenericRequestEvent.class;
+            case Event.ACCOUNT_LINK_BASE + Event.DISCORD_LINK_OFFSET + Event.CREATED_OFFSET:
+            case Event.ACCOUNT_LINK_BASE + Event.DISCORD_LINK_OFFSET + Event.DELETED_OFFSET:
+                return GenericDiscordLinkEvent.class;
         }
 
         return Object.class;

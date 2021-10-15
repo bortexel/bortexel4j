@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import ru.ruscalworld.bortexel4j.exceptions.WebSocketException;
 import ru.ruscalworld.bortexel4j.listening.events.Event;
 import ru.ruscalworld.bortexel4j.listening.events.EventListener;
+import ru.ruscalworld.bortexel4j.listening.events.account.GenericDiscordLinkEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.BanDeletedEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.GenericBanEvent;
 import ru.ruscalworld.bortexel4j.listening.events.city.GenericCityEvent;
@@ -89,6 +90,12 @@ public class IncomingMessageHandler {
                     break;
                 case Event.FORM_ACTION_BASE + Event.WHITELIST_FORM_OFFSET + 4:
                     listener.onWhitelistFormReviewed(new GenericRequestEvent(event));
+                    break;
+                case Event.ACCOUNT_LINK_BASE + Event.DISCORD_LINK_OFFSET + Event.CREATED_OFFSET:
+                    listener.onAccountDiscordLinked(new GenericDiscordLinkEvent(event));
+                    break;
+                case Event.ACCOUNT_LINK_BASE + Event.DISCORD_LINK_OFFSET + Event.DELETED_OFFSET:
+                    listener.onAccountDiscordUnlinked(new GenericDiscordLinkEvent(event));
                     break;
             }
         }

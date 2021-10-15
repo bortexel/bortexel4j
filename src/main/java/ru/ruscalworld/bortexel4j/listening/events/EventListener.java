@@ -1,5 +1,6 @@
 package ru.ruscalworld.bortexel4j.listening.events;
 
+import ru.ruscalworld.bortexel4j.listening.events.account.GenericDiscordLinkEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.BanDeletedEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.GenericBanEvent;
 import ru.ruscalworld.bortexel4j.listening.events.city.GenericCityEvent;
@@ -29,4 +30,7 @@ public class EventListener {
 
     public void onWhitelistFormSubmitted(GenericRequestEvent event) {}
     public void onWhitelistFormReviewed(GenericRequestEvent event) {}
+
+    public void onAccountDiscordLinked(GenericDiscordLinkEvent event) {}
+    public void onAccountDiscordUnlinked(GenericDiscordLinkEvent event) {}
 }

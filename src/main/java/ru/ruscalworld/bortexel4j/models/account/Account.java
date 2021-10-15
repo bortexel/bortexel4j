@@ -10,6 +10,7 @@ import ru.ruscalworld.bortexel4j.models.user.User;
 import ru.ruscalworld.bortexel4j.models.warning.Warning;
 
 import java.util.List;
+import java.util.Optional;
 
 public class Account {
     private final int id;
@@ -146,6 +147,11 @@ public class Account {
         public List<User> getUsers() {
             return users;
         }
+    }
+
+    public Optional<LinkedDiscord> getLinkedDiscord() {
+        if (this.getDiscordID() == null) return Optional.empty();
+        return Optional.of(new LinkedDiscord(this.getDiscord(), this.getDiscordID()));
     }
 
     public int getID() {
