@@ -13,46 +13,37 @@ import java.util.UUID;
 public class User {
     private final int id;
     private String username;
+    @SerializedName("account_id")
+    private final int accountID;
     private final UUID uuid;
-
     @SerializedName("last_login")
     private Timestamp lastLogin;
-
     @SerializedName("valid_till")
     private Timestamp validTill;
-
     @SerializedName("active_till")
     private Timestamp activeTill;
-
     @SerializedName("allow_from")
     private int allowFrom;
-
     @SerializedName("allow_till")
     private int allowTill;
-
     @SerializedName("online_auth")
     private boolean onlineAuth;
-
     @SerializedName("deny_proxy")
     private boolean denyProxy;
-
     private boolean strange;
-
     @SerializedName("warn_power")
     private int warnPower;
-
     @SerializedName("warn_count")
     private int warnCount;
-
     @SerializedName("skin_system")
     private final String skinSystem;
-
     @SerializedName("skin_name")
     private final String skinName;
 
-    public User(int id, String username, UUID uuid, Timestamp lastLogin, Timestamp validTill, Timestamp activeTill, boolean strange, int warnPower, int warnCount, String skinSystem, String skinName) {
+    public User(int id, String username, int accountID, UUID uuid, Timestamp lastLogin, Timestamp validTill, Timestamp activeTill, boolean strange, int warnPower, int warnCount, String skinSystem, String skinName) {
         this.id = id;
         this.username = username;
+        this.accountID = accountID;
         this.uuid = uuid;
         this.lastLogin = lastLogin;
         this.validTill = validTill;
@@ -146,6 +137,10 @@ public class User {
 
     public int getID() {
         return id;
+    }
+
+    public int getAccountID() {
+        return accountID;
     }
 
     public String getUsername() {
