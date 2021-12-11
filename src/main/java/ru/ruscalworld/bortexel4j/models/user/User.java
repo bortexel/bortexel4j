@@ -8,10 +8,12 @@ import ru.ruscalworld.bortexel4j.models.ban.Ban;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 public class User {
     private final int id;
     private String username;
+    private final UUID uuid;
 
     @SerializedName("last_login")
     private Timestamp lastLogin;
@@ -48,9 +50,10 @@ public class User {
     @SerializedName("skin_name")
     private final String skinName;
 
-    public User(int id, String username, Timestamp lastLogin, Timestamp validTill, Timestamp activeTill, boolean strange, int warnPower, int warnCount, String skinSystem, String skinName) {
+    public User(int id, String username, UUID uuid, Timestamp lastLogin, Timestamp validTill, Timestamp activeTill, boolean strange, int warnPower, int warnCount, String skinSystem, String skinName) {
         this.id = id;
         this.username = username;
+        this.uuid = uuid;
         this.lastLogin = lastLogin;
         this.validTill = validTill;
         this.activeTill = activeTill;
@@ -147,6 +150,10 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public UUID getUUID() {
+        return uuid;
     }
 
     public void setUsername(String username) {
