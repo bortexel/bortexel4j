@@ -25,7 +25,7 @@ public class Ban {
     private final String adminName;
 
     @SerializedName("admin_id")
-    private final int adminID;
+    private final Integer adminID;
 
     private String ip;
 
@@ -153,7 +153,7 @@ public class Ban {
         this.suspended = suspended;
     }
 
-    public int getAdminID() {
+    public Integer getAdminID() {
         return adminID;
     }
 
