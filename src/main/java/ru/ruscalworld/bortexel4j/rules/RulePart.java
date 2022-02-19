@@ -18,7 +18,7 @@ public class RulePart {
         this.rules = rules;
     }
 
-    @Nullable public Rule findRule(String name) {
+    public @Nullable Rule findRule(String name) {
         for (Rule rule : this.getRules()) {
             Rule subrule = rule.findRule(name);
             if (subrule != null) return subrule;
@@ -56,8 +56,8 @@ public class RulePart {
             this.punishments = punishments;
         }
 
-        @Nullable public Rule findRule(String name) {
-            if (this.getName().equalsIgnoreCase(name)) return this;
+        public @Nullable Rule findRule(String name) {
+            if (this.getName() != null && this.getName().equalsIgnoreCase(name)) return this;
             if (this.getRules() != null && this.getRules().size() > 0) for (Rule rule : this.getRules()) {
                 Rule subrule = rule.findRule(name);
                 if (subrule != null) return subrule;
@@ -66,7 +66,7 @@ public class RulePart {
             return null;
         }
 
-        public String getName() {
+        public @Nullable String getName() {
             return name;
         }
 
@@ -83,8 +83,9 @@ public class RulePart {
         }
 
         public String render(int level) {
+            String name = this.getName() == null ? "**" + this.getName() + ".**" : "•";
             List<String> output = new ArrayList<>() {{
-                add("║ ".repeat(level) + "**" + getName() + ".** " + getText());
+                add("║ ".repeat(level) + name + " " + getText());
             }};
 
             if (this.getRules() != null) for (Rule subrule : this.getRules()) output.add(subrule.render(level + 1));
