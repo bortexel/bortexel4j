@@ -3,6 +3,7 @@ package ru.ruscalworld.bortexel4j.models.user;
 import com.google.gson.annotations.SerializedName;
 import ru.ruscalworld.bortexel4j.Bortexel4J;
 import ru.ruscalworld.bortexel4j.core.Action;
+import ru.ruscalworld.bortexel4j.core.HTTPMethod;
 import ru.ruscalworld.bortexel4j.models.account.Account;
 import ru.ruscalworld.bortexel4j.models.ban.Ban;
 
@@ -67,6 +68,13 @@ public class User {
         return action;
     }
 
+    public static Action<User> reportLogin(int id, Bortexel4J client) {
+        Action<User> action = new Action<>("/users/" + id + "login", client);
+        action.setResponseType(User.class);
+        action.setMethod(HTTPMethod.PUT);
+        return action;
+    }
+
     public Action<UserSkin> getSkin(Bortexel4J client) {
         return UserSkin.getByUserID(this.getID(), client);
     }
@@ -85,6 +93,10 @@ public class User {
 
     public Action<UserAccount> getAccount(Bortexel4J client) {
         return UserAccount.getByUserID(this.getID(), client);
+    }
+
+    public Action<User> reportLogin(Bortexel4J client) {
+        return reportLogin(this.getID(), client);
     }
 
     public static class UserBans {
