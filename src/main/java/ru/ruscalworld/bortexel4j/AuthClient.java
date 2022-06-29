@@ -5,7 +5,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class AuthClient implements Client {
-    private final static String DEFAULT_AUTH_SERVER_URL = "https://auth.bortexel.ru/v1";
+    private final static String DEFAULT_AUTH_SERVER_URL = "https://auth.bortexel.net/v1";
     private final String url;
     private OkHttpClient httpClient;
 

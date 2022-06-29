@@ -5,7 +5,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class RuleClient implements Client {
-    private String url = "https://cdn.bortexel.ru/rules";
+    private String url = "https://cdn.bortexel.net/rules";
     private OkHttpClient httpClient;
 
     public RuleClient() {

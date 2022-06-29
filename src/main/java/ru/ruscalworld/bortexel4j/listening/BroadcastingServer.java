@@ -25,7 +25,7 @@ public class BroadcastingServer {
 
     public BroadcastingServer(OkHttpClient client) {
         this.client = client;
-        this.url = "wss://bcs.bortexel.ru/v1/websocket";
+        this.url = "wss://pigeon.bortexel.net/v1/websocket";
         this.incomingMessageHandler = new IncomingMessageHandler(this);
     }
 

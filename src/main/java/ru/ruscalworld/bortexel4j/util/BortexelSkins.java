@@ -1,7 +1,7 @@
 package ru.ruscalworld.bortexel4j.util;
 
 public class BortexelSkins {
-    public static final String ENDPOINT_URL = "https://skins.bortexel.ru/";
+    public static final String ENDPOINT_URL = "https://skins.bortexel.net/";
 
     private static final String AVATAR_ENDPOINT_URL = ENDPOINT_URL + "avatars/";
     private static final String HEAD_RENDER_ENDPOINT_URL = ENDPOINT_URL + "renders/head/";

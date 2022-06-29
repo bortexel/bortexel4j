@@ -25,7 +25,7 @@ import java.net.InetAddress;
 import java.util.List;
 
 public class Bortexel4J implements Client {
-    public static final String DEFAULT_API_URL = "https://api.bortexel.ru/v3";
+    public static final String DEFAULT_API_URL = "https://api.bortexel.net/v3";
 
     private final String token;
     private String owner;
