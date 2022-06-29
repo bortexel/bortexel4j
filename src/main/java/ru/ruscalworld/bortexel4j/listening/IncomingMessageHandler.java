@@ -32,7 +32,7 @@ public class IncomingMessageHandler {
         switch (message.getOperation()) {
             case Operations.ERROR:
                 WebSocketException exception = gson.fromJson(payload, WebSocketException.class);
-                this.server.getLogger().trace("Exception in WebSocket connection: ", exception);
+                this.server.getLogger().trace("Exception in WebSocket connection", exception);
                 return false;
             case Operations.NEW_EVENT:
                 Event<Object> event = gson.fromJson(payload, TypeToken.getParameterized(Event.class, message.getEventType()).getType());

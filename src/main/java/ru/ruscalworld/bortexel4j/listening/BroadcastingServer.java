@@ -41,14 +41,14 @@ public class BroadcastingServer {
         this.getStatusChecker().start();
     }
 
-    public boolean disconnect() {
+    public void disconnect() {
         boolean closed = this.getWebSocket().close(1001, null);
         if (closed) {
             this.setWebSocket(null);
             this.getStatusChecker().interrupt();
             this.setStatusChecker(null);
         }
-        return closed;
+        this.getWebSocket().cancel();
     }
 
     public void registerListener(EventListener listener) {
