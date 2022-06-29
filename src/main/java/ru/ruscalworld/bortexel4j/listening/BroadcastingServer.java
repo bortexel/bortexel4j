@@ -5,6 +5,8 @@ import okhttp3.Request;
 import okhttp3.WebSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.ruscalworld.bortexel4j.auth.credentials.ApiCredentials;
+import ru.ruscalworld.bortexel4j.auth.credentials.BearerToken;
 import ru.ruscalworld.bortexel4j.listening.events.EventListener;
 
 import java.sql.Timestamp;
@@ -13,7 +15,7 @@ import java.util.List;
 
 public class BroadcastingServer {
     private String url;
-    private String token;
+    private ApiCredentials credentials;
     private String name;
     private String environment;
     private Timestamp lastMessageReceived;
@@ -67,12 +69,15 @@ public class BroadcastingServer {
         this.url = url;
     }
 
+    @Deprecated
     public String getToken() {
-        return token;
+        if (this.getCredentials() == null) return null;
+        return this.getCredentials().getAuthorizationKey();
     }
 
+    @Deprecated
     public void setToken(String token) {
-        this.token = token;
+        this.credentials = new BearerToken(token);
     }
 
     public OkHttpClient getClient() {
@@ -125,5 +130,13 @@ public class BroadcastingServer {
 
     public void setEnvironment(String environment) {
         this.environment = environment;
+    }
+
+    public ApiCredentials getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(ApiCredentials credentials) {
+        this.credentials = credentials;
     }
 }

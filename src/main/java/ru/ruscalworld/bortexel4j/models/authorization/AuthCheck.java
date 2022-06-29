@@ -1,6 +1,8 @@
 package ru.ruscalworld.bortexel4j.models.authorization;
 
 import ru.ruscalworld.bortexel4j.Bortexel4J;
+import ru.ruscalworld.bortexel4j.auth.credentials.ApiCredentials;
+import ru.ruscalworld.bortexel4j.auth.credentials.BearerToken;
 import ru.ruscalworld.bortexel4j.core.Action;
 
 public class AuthCheck {
@@ -18,10 +20,15 @@ public class AuthCheck {
         this.username = username;
     }
 
-    public static Action<AuthCheck> checkToken(String token) {
-        Action<AuthCheck> action = new Action<>("/authorization", new Bortexel4J(token));
+    public static Action<AuthCheck> checkToken(ApiCredentials credentials) {
+        Action<AuthCheck> action = new Action<>("/authorization", new Bortexel4J(credentials));
         action.setResponseType(AuthCheck.class);
         return action;
+    }
+
+    @Deprecated
+    public static Action<AuthCheck> checkToken(String token) {
+        return checkToken(new BearerToken(token));
     }
 
     public static Action<AuthCheck> checkToken(Bortexel4J client) {

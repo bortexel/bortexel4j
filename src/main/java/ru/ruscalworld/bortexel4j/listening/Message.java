@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import okhttp3.WebSocket;
 import org.jetbrains.annotations.NotNull;
+import ru.ruscalworld.bortexel4j.auth.credentials.ApiCredentials;
+import ru.ruscalworld.bortexel4j.auth.credentials.BearerToken;
 import ru.ruscalworld.bortexel4j.listening.events.Event;
 import ru.ruscalworld.bortexel4j.listening.events.account.GenericDiscordLinkEvent;
 import ru.ruscalworld.bortexel4j.listening.events.ban.BanDeletedEvent;
@@ -73,16 +75,23 @@ public class Message {
     }
 
     public static class Authorization {
-        private final String token;
+        private final ApiCredentials credentials;
         private String name;
         private String environment;
 
+        @Deprecated
         public Authorization(String token) {
-            this.token = token;
+            this.credentials = new BearerToken(token);
         }
 
+        public Authorization(ApiCredentials credentials) {
+            this.credentials = credentials;
+        }
+
+        @Deprecated
         public String getToken() {
-            return token;
+            if (this.getCredentials() == null) return null;
+            return this.getCredentials().getAuthorizationKey();
         }
 
         public String getName() {
@@ -99,6 +108,10 @@ public class Message {
 
         public void setEnvironment(String environment) {
             this.environment = environment;
+        }
+
+        public ApiCredentials getCredentials() {
+            return credentials;
         }
     }
 }
